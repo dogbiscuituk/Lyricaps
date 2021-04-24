@@ -172,12 +172,12 @@
             var totalTime = time.TotalMilliseconds;
             foreach (var line in lines)
             {
+                if (!string.IsNullOrWhiteSpace(line))
+                    text = line;
                 start = stop;
                 stop = TimeSpan.FromMilliseconds(totalTime * lineNumber / lineCount).ToString(@"hh\:mm\:ss\,fff");
                 output.Add($"{lineNumber}");
                 output.Add($"{start} --> {stop}");
-                if (!string.IsNullOrWhiteSpace(line))
-                    text = line;
                 output.Add(text);
                 output.Add(string.Empty);
                 lineNumber++;
