@@ -106,6 +106,7 @@
             {
                 using (var reader = new StreamReader(LyricsOpenDialog.FileName))
                     LyricsTextBox.Text = reader.ReadToEnd();
+                LyricsSaveDialog.FileName = LyricsOpenDialog.FileName;
                 LyricsEdited = false;
             }
         }
@@ -144,6 +145,7 @@
                     writer.Flush();
                     writer.Close();
                 }
+            LyricsOpenDialog.FileName = LyricsSaveDialog.FileName;
             LyricsEdited = false;
         }
 
