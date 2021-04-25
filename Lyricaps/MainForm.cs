@@ -10,16 +10,14 @@
     {
         #region Constructor
 
-        public MainForm()
-        {
-            InitializeComponent();
-        }
+        public MainForm() => InitializeComponent();
 
         #endregion
 
         #region Fields
 
-        private bool CaptionsUpdated, LyricsEdited;
+        private string FileName;
+        private bool LyricsEdited, CaptionsUpdated;
 
         #endregion
 
@@ -90,25 +88,28 @@
 
         private void LoadDuration()
         {
-            if (VideoOpenDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                var file = TagLib.File.Create(VideoOpenDialog.FileName);
-                var duration = file.Properties.Duration;
-                edHours.Value = duration.Hours;
-                edMinutes.Value = duration.Minutes;
-                edSeconds.Value = duration.Seconds;
-            }
+            if (VideoOpenDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+            FileName = VideoOpenDialog.FileName;
+            var file = TagLib.File.Create(FileName);
+            var duration = file.Properties.Duration;
+            edHours.Value = duration.Hours;
+            edMinutes.Value = duration.Minutes;
+            edSeconds.Value = duration.Seconds;
+            edMilliseconds.Value = duration.Milliseconds;
+            UpdateFileName();
         }
 
         private void LoadLyrics()
         {
-            if (LyricsOpenDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                using (var reader = new StreamReader(LyricsOpenDialog.FileName))
-                    LyricsTextBox.Text = reader.ReadToEnd();
-                LyricsSaveDialog.FileName = LyricsOpenDialog.FileName;
-                LyricsEdited = false;
-            }
+            if (LyricsOpenDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+            FileName = LyricsOpenDialog.FileName;
+            using (var reader = new StreamReader(FileName))
+                LyricsTextBox.Text = reader.ReadToEnd();
+            LyricsSaveDialog.FileName = FileName;
+            LyricsEdited = false;
+            UpdateFileName();
         }
 
         private void LyricsChanged()
@@ -117,36 +118,43 @@
             Recalculate();
         }
 
-        private void Recalculate()
-        {
-            var lines = LyricsTextBox.Lines;
-            var output = Caption(lines, (int)edHours.Value, (int)edMinutes.Value, (int)edSeconds.Value);
-            CaptionsTextBox.Lines = output.ToArray();
-        }
+        private void Recalculate() => CaptionsTextBox.Lines = CreateCaptions(
+            LyricsTextBox.Lines,
+            (int)edHours.Value,
+            (int)edMinutes.Value,
+            (int)edSeconds.Value,
+            (int)edMilliseconds.Value)
+            .ToArray();
 
         private void SaveCaptions()
         {
-            if (CaptionsSaveDialog.ShowDialog(this) == DialogResult.OK)
-                using (var writer = new StreamWriter(CaptionsSaveDialog.FileName))
-                {
-                    writer.Write(CaptionsTextBox.Text);
-                    writer.Flush();
-                    writer.Close();
-                }
+            if (CaptionsSaveDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+            FileName = CaptionsSaveDialog.FileName;
+            using (var writer = new StreamWriter(FileName))
+            {
+                writer.Write(CaptionsTextBox.Text);
+                writer.Flush();
+                writer.Close();
+            }
             CaptionsUpdated = false;
+            UpdateFileName();
         }
 
         private void SaveLyrics()
         {
-            if (LyricsSaveDialog.ShowDialog(this) == DialogResult.OK)
-                using (var writer = new StreamWriter(LyricsSaveDialog.FileName))
-                {
-                    writer.Write(LyricsTextBox.Text);
-                    writer.Flush();
-                    writer.Close();
-                }
-            LyricsOpenDialog.FileName = LyricsSaveDialog.FileName;
+            if (LyricsSaveDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+            FileName = LyricsSaveDialog.FileName;
+            using (var writer = new StreamWriter(FileName))
+            {
+                writer.Write(LyricsTextBox.Text);
+                writer.Flush();
+                writer.Close();
+            }
+            LyricsOpenDialog.FileName = FileName;
             LyricsEdited = false;
+            UpdateFileName();
         }
 
         private void ToggleSplit() => SplitContainer.Orientation =
@@ -154,25 +162,27 @@
             ? Orientation.Vertical
             : Orientation.Horizontal;
 
+        private void UpdateFileName() => Text = $"{Path.GetFileNameWithoutExtension(FileName)} - Lyric Captions";
+
         #endregion
 
         #region Static Methods
 
-        private static IEnumerable<string> Caption(IEnumerable<string> lines, int hours, int minutes, int seconds) =>
-            Caption(lines, new TimeSpan(hours: hours, minutes: minutes, seconds: seconds));
+        private static IEnumerable<string> CreateCaptions(IEnumerable<string> lyrics, int hours, int minutes, int seconds, int milliseconds) =>
+            CreateCaptions(lyrics, new TimeSpan(days: 0, hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds));
 
-        private static IEnumerable<string> Caption(IEnumerable<string> lines, TimeSpan time)
+        private static IEnumerable<string> CreateCaptions(IEnumerable<string> lyrics, TimeSpan timeSpan)
         {
             var output = new List<string>();
             int
-                lineCount = lines.Count(),
+                lineCount = lyrics.Count(),
                 lineNumber = 1;
             string
                 text = string.Empty,
                 start,
                 stop = "00:00:00,000";
-            var totalTime = time.TotalMilliseconds;
-            foreach (var line in lines)
+            var totalTime = timeSpan.TotalMilliseconds;
+            foreach (var line in lyrics)
             {
                 if (!string.IsNullOrWhiteSpace(line))
                     text = line;

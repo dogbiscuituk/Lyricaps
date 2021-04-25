@@ -56,6 +56,8 @@
             this.CaptionsSaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.LyricsSaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.edMilliseconds = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
             this.PopupLyrics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edSeconds)).BeginInit();
@@ -66,6 +68,7 @@
             this.SplitContainer.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edHours)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edMilliseconds)).BeginInit();
             this.SuspendLayout();
             // 
             // LyricsTextBox
@@ -125,28 +128,30 @@
             // 
             // edMinutes
             // 
-            this.edMinutes.Location = new System.Drawing.Point(170, 7);
+            this.edMinutes.Location = new System.Drawing.Point(152, 6);
             this.edMinutes.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
             this.edMinutes.Name = "edMinutes";
-            this.edMinutes.Size = new System.Drawing.Size(41, 20);
+            this.edMinutes.Size = new System.Drawing.Size(35, 20);
             this.edMinutes.TabIndex = 2;
+            this.edMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.edMinutes.ValueChanged += new System.EventHandler(this.edVideoLength_ValueChanged);
             // 
             // edSeconds
             // 
-            this.edSeconds.Location = new System.Drawing.Point(266, 7);
+            this.edSeconds.Location = new System.Drawing.Point(222, 6);
             this.edSeconds.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
             this.edSeconds.Name = "edSeconds";
-            this.edSeconds.Size = new System.Drawing.Size(41, 20);
+            this.edSeconds.Size = new System.Drawing.Size(35, 20);
             this.edSeconds.TabIndex = 3;
+            this.edSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.edSeconds.ValueChanged += new System.EventHandler(this.edVideoLength_ValueChanged);
             // 
             // CaptionsTextBox
@@ -196,20 +201,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(313, 9);
+            this.label2.Location = new System.Drawing.Point(263, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.Size = new System.Drawing.Size(24, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "seconds";
+            this.label2.Text = "sec";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(217, 9);
+            this.label3.Location = new System.Drawing.Point(193, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.Size = new System.Drawing.Size(23, 13);
             this.label3.TabIndex = 7;
-            this.label3.Text = "minutes";
+            this.label3.Text = "min";
             // 
             // SplitContainer
             // 
@@ -230,6 +235,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.edMilliseconds);
             this.panel1.Controls.Add(this.btnSelectVideoFile);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
@@ -259,23 +266,24 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(131, 9);
+            this.label4.Location = new System.Drawing.Point(125, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 13);
+            this.label4.Size = new System.Drawing.Size(21, 13);
             this.label4.TabIndex = 16;
-            this.label4.Text = "hours";
+            this.label4.Text = "hrs";
             // 
             // edHours
             // 
-            this.edHours.Location = new System.Drawing.Point(84, 7);
+            this.edHours.Location = new System.Drawing.Point(84, 6);
             this.edHours.Maximum = new decimal(new int[] {
             23,
             0,
             0,
             0});
             this.edHours.Name = "edHours";
-            this.edHours.Size = new System.Drawing.Size(41, 20);
+            this.edHours.Size = new System.Drawing.Size(35, 20);
             this.edHours.TabIndex = 16;
+            this.edHours.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.edHours.ValueChanged += new System.EventHandler(this.edVideoLength_ValueChanged);
             // 
             // label1
@@ -310,6 +318,29 @@
             this.LyricsSaveDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             this.LyricsSaveDialog.Title = "Save Lyrics File";
             // 
+            // edMilliseconds
+            // 
+            this.edMilliseconds.Location = new System.Drawing.Point(293, 6);
+            this.edMilliseconds.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.edMilliseconds.Name = "edMilliseconds";
+            this.edMilliseconds.Size = new System.Drawing.Size(41, 20);
+            this.edMilliseconds.TabIndex = 18;
+            this.edMilliseconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.edMilliseconds.ValueChanged += new System.EventHandler(this.edVideoLength_ValueChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(340, 8);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(20, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "ms";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -334,6 +365,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edHours)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edMilliseconds)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -365,6 +397,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem PopupCaptionsToggleSplit;
         private System.Windows.Forms.ToolTip ToolTip;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown edMilliseconds;
     }
 }
 
