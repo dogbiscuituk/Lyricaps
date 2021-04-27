@@ -173,37 +173,38 @@
 
         private static IList<string> CreateCaptions(IEnumerable<string> lyrics, TimeSpan timeSpan)
         {
-            var output = new List<string>();
+            var captions = new List<string>();
             int
-                lineCount = lyrics.Count(),
-                lineNumber = 0, itemNumber = 0;
+                lyricsCount = lyrics.Count(),
+                lyricsIndex = 0,
+                itemIndex = 0;
             string
-                start,
-                stop = "00:00:00,000",
-                previousLine = string.Empty;
+                startTime,
+                stopTime = "00:00:00,000",
+                previousLyric = string.Empty;
             var totalTime = timeSpan.TotalMilliseconds;
-            foreach (var line in lyrics)
+            foreach (var lyric in lyrics)
             {
-                lineNumber++;
-                start = stop;
-                stop = TimeSpan.FromMilliseconds(totalTime * lineNumber / lineCount).ToString(@"hh\:mm\:ss\,fff");
-                if (!string.IsNullOrWhiteSpace(line) && line != previousLine)
+                lyricsIndex++;
+                startTime = stopTime;
+                stopTime = TimeSpan.FromMilliseconds(totalTime * lyricsIndex / lyricsCount).ToString(@"hh\:mm\:ss\,fff");
+                if (!string.IsNullOrWhiteSpace(lyric) && lyric != previousLyric) // Add the new lyric line.
                 {
-                    itemNumber++;
-                    output.Add($"{itemNumber}");
-                    output.Add($"{start} --> {stop}");
-                    output.Add(line);
-                    output.Add(string.Empty);
-                    previousLine = line;
+                    itemIndex++;
+                    captions.Add($"{itemIndex}");
+                    captions.Add($"{startTime} --> {stopTime}");
+                    captions.Add(lyric);
+                    captions.Add(string.Empty);
+                    previousLyric = lyric;
                 }
-                else if (itemNumber > 0)
+                else if (itemIndex > 0) // The previous lyric line is repeated, so just extend its display time.
                 {
-                    var p = 4 * itemNumber - 3;
-                    var s = output[p];
-                    output[p] = $"{s.Substring(0, 17)}{stop}";
+                    var captionIndex = 4 * itemIndex - 3;
+                    var caption = captions[captionIndex];
+                    captions[captionIndex] = $"{caption.Substring(0, 17)}{stopTime}";
                 }
             }
-            return output;
+            return captions;
         }
 
         #endregion
