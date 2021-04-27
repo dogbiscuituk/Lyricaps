@@ -168,31 +168,40 @@
 
         #region Static Methods
 
-        private static IEnumerable<string> CreateCaptions(IEnumerable<string> lyrics, int hours, int minutes, int seconds, int milliseconds) =>
+        private static IList<string> CreateCaptions(IEnumerable<string> lyrics, int hours, int minutes, int seconds, int milliseconds) =>
             CreateCaptions(lyrics, new TimeSpan(days: 0, hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds));
 
-        private static IEnumerable<string> CreateCaptions(IEnumerable<string> lyrics, TimeSpan timeSpan)
+        private static IList<string> CreateCaptions(IEnumerable<string> lyrics, TimeSpan timeSpan)
         {
             var output = new List<string>();
             int
                 lineCount = lyrics.Count(),
-                lineNumber = 1;
+                lineNumber = 0, itemNumber = 0;
             string
-                text = string.Empty,
                 start,
-                stop = "00:00:00,000";
+                stop = "00:00:00,000",
+                previousLine = string.Empty;
             var totalTime = timeSpan.TotalMilliseconds;
             foreach (var line in lyrics)
             {
-                if (!string.IsNullOrWhiteSpace(line))
-                    text = line;
+                lineNumber++;
                 start = stop;
                 stop = TimeSpan.FromMilliseconds(totalTime * lineNumber / lineCount).ToString(@"hh\:mm\:ss\,fff");
-                output.Add($"{lineNumber}");
-                output.Add($"{start} --> {stop}");
-                output.Add(text);
-                output.Add(string.Empty);
-                lineNumber++;
+                if (!string.IsNullOrWhiteSpace(line) && line != previousLine)
+                {
+                    itemNumber++;
+                    output.Add($"{itemNumber}");
+                    output.Add($"{start} --> {stop}");
+                    output.Add(line);
+                    output.Add(string.Empty);
+                    previousLine = line;
+                }
+                else if (itemNumber > 0)
+                {
+                    var p = 4 * itemNumber - 3;
+                    var s = output[p];
+                    output[p] = $"{s.Substring(0, 17)}{stop}";
+                }
             }
             return output;
         }
