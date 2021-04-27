@@ -1,4 +1,4 @@
-﻿namespace Lyricaps
+﻿namespace Lyricaps.Views
 {
     partial class MainForm
     {
@@ -34,38 +34,42 @@
             this.PopupLyrics = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.PopupLyricsOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.PopupLyricsSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.PopupLyricsToggleSplit = new System.Windows.Forms.ToolStripMenuItem();
-            this.edMinutes = new System.Windows.Forms.NumericUpDown();
-            this.edSeconds = new System.Windows.Forms.NumericUpDown();
+            this.EdMinutes = new System.Windows.Forms.NumericUpDown();
+            this.EdSeconds = new System.Windows.Forms.NumericUpDown();
             this.CaptionsTextBox = new System.Windows.Forms.TextBox();
             this.PopupCaptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.PopupCaptionsSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.PopupCaptionsToggleSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.SplitContainer = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.edMilliseconds = new System.Windows.Forms.NumericUpDown();
-            this.btnSelectVideoFile = new System.Windows.Forms.Button();
+            this.EdMilliseconds = new System.Windows.Forms.NumericUpDown();
+            this.BtnSelectVideoFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.VideoOpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.LyricsOpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.CaptionsSaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.LyricsSaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.PopupCaptionsEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.PopupCaptionsOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.CaptionsOpenDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.PopupLyrics.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edMinutes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edSeconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdSeconds)).BeginInit();
             this.PopupCaptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).BeginInit();
             this.SplitContainer.Panel1.SuspendLayout();
             this.SplitContainer.Panel2.SuspendLayout();
             this.SplitContainer.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edMilliseconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdMilliseconds)).BeginInit();
             this.SuspendLayout();
             // 
             // LyricsTextBox
@@ -81,14 +85,13 @@
             this.ToolTip.SetToolTip(this.LyricsTextBox, "The lyrics can be pasted into this control from the clipboard.\r\nOr, right-click t" +
         "o load the song lyrics into this control from a text file.");
             this.LyricsTextBox.WordWrap = false;
-            this.LyricsTextBox.TextChanged += new System.EventHandler(this.edLyrics_TextChanged);
             // 
             // PopupLyrics
             // 
             this.PopupLyrics.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.PopupLyricsOpen,
             this.PopupLyricsSave,
-            this.toolStripMenuItem1,
+            this.toolStripMenuItem3,
             this.PopupLyricsToggleSplit});
             this.PopupLyrics.Name = "PopupLyrics";
             this.PopupLyrics.Size = new System.Drawing.Size(145, 76);
@@ -100,7 +103,6 @@
             this.PopupLyricsOpen.Text = "Open Lyrics...";
             this.PopupLyricsOpen.ToolTipText = "Load the song lyrics into this control from a text file.\r\nThe lyrics can also be " +
     "pasted into this control from the clipboard.";
-            this.PopupLyricsOpen.Click += new System.EventHandler(this.PopupLyricsOpen_Click);
             // 
             // PopupLyricsSave
             // 
@@ -108,12 +110,6 @@
             this.PopupLyricsSave.Size = new System.Drawing.Size(144, 22);
             this.PopupLyricsSave.Text = "Save Lyrics...";
             this.PopupLyricsSave.ToolTipText = "Save the song lyrics to a text file.";
-            this.PopupLyricsSave.Click += new System.EventHandler(this.PopupLyricsSave_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(141, 6);
             // 
             // PopupLyricsToggleSplit
             // 
@@ -121,35 +117,32 @@
             this.PopupLyricsToggleSplit.Size = new System.Drawing.Size(144, 22);
             this.PopupLyricsToggleSplit.Text = "Toggle Split";
             this.PopupLyricsToggleSplit.ToolTipText = "Toggle between a horizontally and vertically split window.";
-            this.PopupLyricsToggleSplit.Click += new System.EventHandler(this.PopupToggleSplit_Click);
             // 
             // edMinutes
             // 
-            this.edMinutes.Location = new System.Drawing.Point(93, 6);
-            this.edMinutes.Maximum = new decimal(new int[] {
+            this.EdMinutes.Location = new System.Drawing.Point(93, 6);
+            this.EdMinutes.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
-            this.edMinutes.Name = "edMinutes";
-            this.edMinutes.Size = new System.Drawing.Size(35, 20);
-            this.edMinutes.TabIndex = 2;
-            this.edMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.edMinutes.ValueChanged += new System.EventHandler(this.edVideoLength_ValueChanged);
+            this.EdMinutes.Name = "edMinutes";
+            this.EdMinutes.Size = new System.Drawing.Size(35, 20);
+            this.EdMinutes.TabIndex = 2;
+            this.EdMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // edSeconds
             // 
-            this.edSeconds.Location = new System.Drawing.Point(163, 6);
-            this.edSeconds.Maximum = new decimal(new int[] {
+            this.EdSeconds.Location = new System.Drawing.Point(163, 6);
+            this.EdSeconds.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
-            this.edSeconds.Name = "edSeconds";
-            this.edSeconds.Size = new System.Drawing.Size(35, 20);
-            this.edSeconds.TabIndex = 3;
-            this.edSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.edSeconds.ValueChanged += new System.EventHandler(this.edVideoLength_ValueChanged);
+            this.EdSeconds.Name = "edSeconds";
+            this.EdSeconds.Size = new System.Drawing.Size(35, 20);
+            this.EdSeconds.TabIndex = 3;
+            this.EdSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // CaptionsTextBox
             // 
@@ -163,37 +156,32 @@
             this.CaptionsTextBox.TabIndex = 4;
             this.ToolTip.SetToolTip(this.CaptionsTextBox, "The calculated captions appear here.\r\nRight-click to save them to a SubRip file.");
             this.CaptionsTextBox.WordWrap = false;
-            this.CaptionsTextBox.TextChanged += new System.EventHandler(this.edCaptions_TextChanged);
             // 
             // PopupCaptions
             // 
             this.PopupCaptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PopupCaptionsEdit,
+            this.toolStripMenuItem1,
+            this.PopupCaptionsOpen,
             this.PopupCaptionsSave,
             this.toolStripMenuItem2,
             this.PopupCaptionsToggleSplit});
             this.PopupCaptions.Name = "PopupCaptions";
-            this.PopupCaptions.Size = new System.Drawing.Size(158, 54);
+            this.PopupCaptions.Size = new System.Drawing.Size(163, 104);
             // 
             // PopupCaptionsSave
             // 
             this.PopupCaptionsSave.Name = "PopupCaptionsSave";
-            this.PopupCaptionsSave.Size = new System.Drawing.Size(157, 22);
+            this.PopupCaptionsSave.Size = new System.Drawing.Size(162, 22);
             this.PopupCaptionsSave.Text = "Save Captions...";
             this.PopupCaptionsSave.ToolTipText = "Save the calculated captions to a SubRip format file.";
-            this.PopupCaptionsSave.Click += new System.EventHandler(this.PopupCaptionsSave_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(154, 6);
             // 
             // PopupCaptionsToggleSplit
             // 
             this.PopupCaptionsToggleSplit.Name = "PopupCaptionsToggleSplit";
-            this.PopupCaptionsToggleSplit.Size = new System.Drawing.Size(157, 22);
+            this.PopupCaptionsToggleSplit.Size = new System.Drawing.Size(162, 22);
             this.PopupCaptionsToggleSplit.Text = "Toggle Split";
             this.PopupCaptionsToggleSplit.ToolTipText = "Toggle between a horizontally and vertically split window.";
-            this.PopupCaptionsToggleSplit.Click += new System.EventHandler(this.PopupToggleSplit_Click);
             // 
             // label2
             // 
@@ -233,13 +221,13 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.edMilliseconds);
-            this.panel1.Controls.Add(this.btnSelectVideoFile);
+            this.panel1.Controls.Add(this.EdMilliseconds);
+            this.panel1.Controls.Add(this.BtnSelectVideoFile);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.edSeconds);
-            this.panel1.Controls.Add(this.edMinutes);
+            this.panel1.Controls.Add(this.EdSeconds);
+            this.panel1.Controls.Add(this.EdMinutes);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -258,28 +246,26 @@
             // 
             // edMilliseconds
             // 
-            this.edMilliseconds.Location = new System.Drawing.Point(234, 6);
-            this.edMilliseconds.Maximum = new decimal(new int[] {
+            this.EdMilliseconds.Location = new System.Drawing.Point(234, 6);
+            this.EdMilliseconds.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-            this.edMilliseconds.Name = "edMilliseconds";
-            this.edMilliseconds.Size = new System.Drawing.Size(41, 20);
-            this.edMilliseconds.TabIndex = 18;
-            this.edMilliseconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.edMilliseconds.ValueChanged += new System.EventHandler(this.edVideoLength_ValueChanged);
+            this.EdMilliseconds.Name = "edMilliseconds";
+            this.EdMilliseconds.Size = new System.Drawing.Size(41, 20);
+            this.EdMilliseconds.TabIndex = 18;
+            this.EdMilliseconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnSelectVideoFile
             // 
-            this.btnSelectVideoFile.Location = new System.Drawing.Point(307, 6);
-            this.btnSelectVideoFile.Name = "btnSelectVideoFile";
-            this.btnSelectVideoFile.Size = new System.Drawing.Size(117, 23);
-            this.btnSelectVideoFile.TabIndex = 17;
-            this.btnSelectVideoFile.Text = "Select video file...";
-            this.ToolTip.SetToolTip(this.btnSelectVideoFile, "Click this button to read the duration directly from the selected media source.");
-            this.btnSelectVideoFile.UseVisualStyleBackColor = true;
-            this.btnSelectVideoFile.Click += new System.EventHandler(this.btnSelectVideoFile_Click);
+            this.BtnSelectVideoFile.Location = new System.Drawing.Point(307, 6);
+            this.BtnSelectVideoFile.Name = "btnSelectVideoFile";
+            this.BtnSelectVideoFile.Size = new System.Drawing.Size(117, 23);
+            this.BtnSelectVideoFile.TabIndex = 17;
+            this.BtnSelectVideoFile.Text = "Select video file...";
+            this.ToolTip.SetToolTip(this.BtnSelectVideoFile, "Click this button to read the duration directly from the selected media source.");
+            this.BtnSelectVideoFile.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -313,6 +299,38 @@
             this.LyricsSaveDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             this.LyricsSaveDialog.Title = "Save Lyrics File";
             // 
+            // PopupCaptionsEdit
+            // 
+            this.PopupCaptionsEdit.Name = "PopupCaptionsEdit";
+            this.PopupCaptionsEdit.Size = new System.Drawing.Size(180, 22);
+            this.PopupCaptionsEdit.Text = "Edit Caption...";
+            // 
+            // PopupCaptionsOpen
+            // 
+            this.PopupCaptionsOpen.Name = "PopupCaptionsOpen";
+            this.PopupCaptionsOpen.Size = new System.Drawing.Size(162, 22);
+            this.PopupCaptionsOpen.Text = "Open Captions...";
+            // 
+            // CaptionsOpenDialog
+            // 
+            this.CaptionsOpenDialog.Filter = "SubRip files (*.srt)|*.srt|All files (*.*)|*.*";
+            this.CaptionsOpenDialog.Title = "Open Captions File";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(159, 6);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(159, 6);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(141, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -323,10 +341,9 @@
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "MainForm";
             this.Text = "Lyric Captions";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.PopupLyrics.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.edMinutes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edSeconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdSeconds)).EndInit();
             this.PopupCaptions.ResumeLayout(false);
             this.SplitContainer.Panel1.ResumeLayout(false);
             this.SplitContainer.Panel1.PerformLayout();
@@ -336,38 +353,42 @@
             this.SplitContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edMilliseconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdMilliseconds)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox LyricsTextBox;
-        private System.Windows.Forms.NumericUpDown edMinutes;
-        private System.Windows.Forms.NumericUpDown edSeconds;
-        private System.Windows.Forms.TextBox CaptionsTextBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.SplitContainer SplitContainer;
-        private System.Windows.Forms.ContextMenuStrip PopupLyrics;
-        private System.Windows.Forms.ToolStripMenuItem PopupLyricsOpen;
-        private System.Windows.Forms.ToolStripMenuItem PopupLyricsSave;
-        private System.Windows.Forms.ContextMenuStrip PopupCaptions;
-        private System.Windows.Forms.ToolStripMenuItem PopupCaptionsSave;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnSelectVideoFile;
-        private System.Windows.Forms.OpenFileDialog VideoOpenDialog;
-        private System.Windows.Forms.OpenFileDialog LyricsOpenDialog;
-        private System.Windows.Forms.SaveFileDialog CaptionsSaveDialog;
-        private System.Windows.Forms.SaveFileDialog LyricsSaveDialog;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem PopupLyricsToggleSplit;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem PopupCaptionsToggleSplit;
-        private System.Windows.Forms.ToolTip ToolTip;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown edMilliseconds;
+        internal System.Windows.Forms.TextBox LyricsTextBox;
+        internal System.Windows.Forms.NumericUpDown EdMinutes;
+        internal System.Windows.Forms.NumericUpDown EdSeconds;
+        internal System.Windows.Forms.TextBox CaptionsTextBox;
+        internal System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.SplitContainer SplitContainer;
+        internal System.Windows.Forms.ContextMenuStrip PopupLyrics;
+        internal System.Windows.Forms.ToolStripMenuItem PopupLyricsOpen;
+        internal System.Windows.Forms.ToolStripMenuItem PopupLyricsSave;
+        internal System.Windows.Forms.ContextMenuStrip PopupCaptions;
+        internal System.Windows.Forms.ToolStripMenuItem PopupCaptionsSave;
+        internal System.Windows.Forms.Panel panel1;
+        internal System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.Button BtnSelectVideoFile;
+        internal System.Windows.Forms.OpenFileDialog VideoOpenDialog;
+        internal System.Windows.Forms.OpenFileDialog LyricsOpenDialog;
+        internal System.Windows.Forms.SaveFileDialog CaptionsSaveDialog;
+        internal System.Windows.Forms.SaveFileDialog LyricsSaveDialog;
+        internal System.Windows.Forms.ToolStripMenuItem PopupLyricsToggleSplit;
+        internal System.Windows.Forms.ToolStripMenuItem PopupCaptionsToggleSplit;
+        internal System.Windows.Forms.ToolTip ToolTip;
+        internal System.Windows.Forms.Label label5;
+        internal System.Windows.Forms.NumericUpDown EdMilliseconds;
+        internal System.Windows.Forms.ToolStripMenuItem PopupCaptionsEdit;
+        internal System.Windows.Forms.ToolStripMenuItem PopupCaptionsOpen;
+        internal System.Windows.Forms.OpenFileDialog CaptionsOpenDialog;
+        internal System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        internal System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        internal System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
     }
 }
 
