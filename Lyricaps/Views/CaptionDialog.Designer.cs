@@ -29,25 +29,25 @@
         private void InitializeComponent()
         {
             this.label5 = new System.Windows.Forms.Label();
-            this.edStartMilliseconds = new System.Windows.Forms.NumericUpDown();
+            this.EdMilliseconds = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.edStartSeconds = new System.Windows.Forms.NumericUpDown();
-            this.edStartMinutes = new System.Windows.Forms.NumericUpDown();
+            this.EdSeconds = new System.Windows.Forms.NumericUpDown();
+            this.EdMinutes = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.edIndex = new System.Windows.Forms.NumericUpDown();
+            this.EdIndex = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.edLyric = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.EdLyric = new System.Windows.Forms.TextBox();
+            this.ButtonOK = new System.Windows.Forms.Button();
+            this.EdDuration = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.edStartMilliseconds)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edStartSeconds)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edStartMinutes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edIndex)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdMilliseconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdSeconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdIndex)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdDuration)).BeginInit();
             this.SuspendLayout();
             // 
             // label5
@@ -59,18 +59,18 @@
             this.label5.TabIndex = 25;
             this.label5.Text = "ms";
             // 
-            // edStartMilliseconds
+            // EdMilliseconds
             // 
-            this.edStartMilliseconds.Location = new System.Drawing.Point(205, 64);
-            this.edStartMilliseconds.Maximum = new decimal(new int[] {
+            this.EdMilliseconds.Location = new System.Drawing.Point(205, 64);
+            this.EdMilliseconds.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-            this.edStartMilliseconds.Name = "edStartMilliseconds";
-            this.edStartMilliseconds.Size = new System.Drawing.Size(41, 20);
-            this.edStartMilliseconds.TabIndex = 24;
-            this.edStartMilliseconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EdMilliseconds.Name = "EdMilliseconds";
+            this.EdMilliseconds.Size = new System.Drawing.Size(41, 20);
+            this.EdMilliseconds.TabIndex = 24;
+            this.EdMilliseconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
             // 
@@ -90,31 +90,31 @@
             this.label2.TabIndex = 22;
             this.label2.Text = "sec";
             // 
-            // edStartSeconds
+            // EdSeconds
             // 
-            this.edStartSeconds.Location = new System.Drawing.Point(134, 64);
-            this.edStartSeconds.Maximum = new decimal(new int[] {
+            this.EdSeconds.Location = new System.Drawing.Point(134, 64);
+            this.EdSeconds.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
-            this.edStartSeconds.Name = "edStartSeconds";
-            this.edStartSeconds.Size = new System.Drawing.Size(35, 20);
-            this.edStartSeconds.TabIndex = 21;
-            this.edStartSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EdSeconds.Name = "EdSeconds";
+            this.EdSeconds.Size = new System.Drawing.Size(35, 20);
+            this.EdSeconds.TabIndex = 21;
+            this.EdSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // edStartMinutes
+            // EdMinutes
             // 
-            this.edStartMinutes.Location = new System.Drawing.Point(64, 64);
-            this.edStartMinutes.Maximum = new decimal(new int[] {
+            this.EdMinutes.Location = new System.Drawing.Point(64, 64);
+            this.EdMinutes.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
-            this.edStartMinutes.Name = "edStartMinutes";
-            this.edStartMinutes.Size = new System.Drawing.Size(35, 20);
-            this.edStartMinutes.TabIndex = 20;
-            this.edStartMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EdMinutes.Name = "EdMinutes";
+            this.EdMinutes.Size = new System.Drawing.Size(35, 20);
+            this.EdMinutes.TabIndex = 20;
+            this.EdMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
@@ -125,18 +125,18 @@
             this.label1.TabIndex = 26;
             this.label1.Text = "Index";
             // 
-            // edIndex
+            // EdIndex
             // 
-            this.edIndex.Location = new System.Drawing.Point(64, 12);
-            this.edIndex.Maximum = new decimal(new int[] {
+            this.EdIndex.Location = new System.Drawing.Point(64, 12);
+            this.EdIndex.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-            this.edIndex.Name = "edIndex";
-            this.edIndex.Size = new System.Drawing.Size(41, 20);
-            this.edIndex.TabIndex = 27;
-            this.edIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EdIndex.Name = "EdIndex";
+            this.EdIndex.Size = new System.Drawing.Size(41, 20);
+            this.EdIndex.TabIndex = 27;
+            this.EdIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
             // 
@@ -165,40 +165,40 @@
             this.label7.TabIndex = 30;
             this.label7.Text = "Duration";
             // 
-            // edLyric
+            // EdLyric
             // 
-            this.edLyric.Location = new System.Drawing.Point(64, 38);
-            this.edLyric.Name = "edLyric";
-            this.edLyric.Size = new System.Drawing.Size(268, 20);
-            this.edLyric.TabIndex = 31;
+            this.EdLyric.Location = new System.Drawing.Point(64, 38);
+            this.EdLyric.Name = "EdLyric";
+            this.EdLyric.Size = new System.Drawing.Size(268, 20);
+            this.EdLyric.TabIndex = 31;
             // 
-            // button1
+            // ButtonOK
             // 
-            this.button1.Location = new System.Drawing.Point(257, 126);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 38;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ButtonOK.Location = new System.Drawing.Point(257, 126);
+            this.ButtonOK.Name = "ButtonOK";
+            this.ButtonOK.Size = new System.Drawing.Size(75, 23);
+            this.ButtonOK.TabIndex = 38;
+            this.ButtonOK.Text = "OK";
+            this.ButtonOK.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown1
+            // EdDuration
             // 
-            this.numericUpDown1.DecimalPlaces = 3;
-            this.numericUpDown1.Increment = new decimal(new int[] {
+            this.EdDuration.DecimalPlaces = 3;
+            this.EdDuration.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDown1.Location = new System.Drawing.Point(64, 91);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.EdDuration.Location = new System.Drawing.Point(64, 91);
+            this.EdDuration.Maximum = new decimal(new int[] {
             3600,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(105, 20);
-            this.numericUpDown1.TabIndex = 39;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EdDuration.Name = "EdDuration";
+            this.EdDuration.Size = new System.Drawing.Size(105, 20);
+            this.EdDuration.TabIndex = 39;
+            this.EdDuration.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label8
             // 
@@ -215,28 +215,28 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 161);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.edLyric);
+            this.Controls.Add(this.EdDuration);
+            this.Controls.Add(this.ButtonOK);
+            this.Controls.Add(this.EdLyric);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.edIndex);
+            this.Controls.Add(this.EdIndex);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.edStartMilliseconds);
+            this.Controls.Add(this.EdMilliseconds);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.edStartSeconds);
-            this.Controls.Add(this.edStartMinutes);
+            this.Controls.Add(this.EdSeconds);
+            this.Controls.Add(this.EdMinutes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "CaptionDialog";
-            this.Text = "Edit Lyric Caption / Duration";
-            ((System.ComponentModel.ISupportInitialize)(this.edStartMilliseconds)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edStartSeconds)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edStartMinutes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edIndex)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.Text = "Edit Lyric Caption / Timing";
+            ((System.ComponentModel.ISupportInitialize)(this.EdMilliseconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdSeconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdIndex)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdDuration)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,20 +244,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown edStartMilliseconds;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown edStartSeconds;
-        private System.Windows.Forms.NumericUpDown edStartMinutes;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown edIndex;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox edLyric;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label8;
+        internal System.Windows.Forms.Label label5;
+        internal System.Windows.Forms.NumericUpDown EdMilliseconds;
+        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.NumericUpDown EdSeconds;
+        internal System.Windows.Forms.NumericUpDown EdMinutes;
+        internal System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.NumericUpDown EdIndex;
+        internal System.Windows.Forms.Label label4;
+        internal System.Windows.Forms.Label label6;
+        internal System.Windows.Forms.Label label7;
+        internal System.Windows.Forms.TextBox EdLyric;
+        internal System.Windows.Forms.Button ButtonOK;
+        internal System.Windows.Forms.NumericUpDown EdDuration;
+        internal System.Windows.Forms.Label label8;
     }
 }

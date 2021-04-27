@@ -39,13 +39,14 @@
             {
                 if (View != null)
                 {
+                    CaptionsTextBox.DoubleClick -= PopupCaptionsEdit_Click;
+                    CaptionsTextBox.TextChanged -= CaptionsTextBox_TextChanged;
+                    EdMilliseconds.ValueChanged -= EdVideoLength_ValueChanged;
+                    EdMinutes.ValueChanged -= EdVideoLength_ValueChanged;
+                    EdSeconds.ValueChanged -= EdVideoLength_ValueChanged;
+                    LyricsTextBox.TextChanged -= LyricsTextBox_TextChanged;
                     View.BtnSelectVideoFile.Click -= BtnSelectVideoFile_Click;
-                    View.CaptionsTextBox.TextChanged -= CaptionsTextBox_TextChanged;
-                    View.EdMilliseconds.ValueChanged -= EdVideoLength_ValueChanged;
-                    View.EdMinutes.ValueChanged -= EdVideoLength_ValueChanged;
-                    View.EdSeconds.ValueChanged -= EdVideoLength_ValueChanged;
                     View.FormClosing -= View_FormClosing;
-                    View.LyricsTextBox.TextChanged -= LyricsTextBox_TextChanged;
                     View.PopupCaptionsEdit.Click -= PopupCaptionsEdit_Click;
                     View.PopupCaptionsOpen.Click -= PopupCaptionsOpen_Click;
                     View.PopupCaptionsSave.Click -= PopupCaptionsSave_Click;
@@ -57,13 +58,14 @@
                 mView = value;
                 if (View != null)
                 {
+                    CaptionsTextBox.DoubleClick += PopupCaptionsEdit_Click;
+                    CaptionsTextBox.TextChanged += CaptionsTextBox_TextChanged;
+                    EdMilliseconds.ValueChanged += EdVideoLength_ValueChanged;
+                    EdMinutes.ValueChanged += EdVideoLength_ValueChanged;
+                    EdSeconds.ValueChanged += EdVideoLength_ValueChanged;
+                    LyricsTextBox.TextChanged += LyricsTextBox_TextChanged;
                     View.BtnSelectVideoFile.Click += BtnSelectVideoFile_Click;
-                    View.CaptionsTextBox.TextChanged += CaptionsTextBox_TextChanged;
-                    View.EdMilliseconds.ValueChanged += EdVideoLength_ValueChanged;
-                    View.EdMinutes.ValueChanged += EdVideoLength_ValueChanged;
-                    View.EdSeconds.ValueChanged += EdVideoLength_ValueChanged;
                     View.FormClosing += View_FormClosing;
-                    View.LyricsTextBox.TextChanged += LyricsTextBox_TextChanged;
                     View.PopupCaptionsEdit.Click += PopupCaptionsEdit_Click;
                     View.PopupCaptionsOpen.Click += PopupCaptionsOpen_Click;
                     View.PopupCaptionsSave.Click += PopupCaptionsSave_Click;
@@ -184,11 +186,8 @@
             }
         }
 
-        private void EditCaptions()
-        {
-            var captionNumber = 10;
-            new CaptionDialog().Execute(View, captionNumber);
-        }
+        private void EditCaptions() => new CaptionController(this).Execute(
+            1 + CaptionsTextBox.GetLineFromCharIndex(CaptionsTextBox.SelectionStart) / 4);
 
         private void LoadCaptions()
         {
