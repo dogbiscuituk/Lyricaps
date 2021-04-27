@@ -17,6 +17,9 @@
         #region Fields
 
         private string FileName;
+
+        private List<string> Lyrics = new List<string>();
+
         private bool LyricsEdited, CaptionsUpdated;
 
         #endregion
@@ -93,7 +96,6 @@
             FileName = VideoOpenDialog.FileName;
             var file = TagLib.File.Create(FileName);
             var duration = file.Properties.Duration;
-            edHours.Value = duration.Hours;
             edMinutes.Value = duration.Minutes;
             edSeconds.Value = duration.Seconds;
             edMilliseconds.Value = duration.Milliseconds;
@@ -118,9 +120,7 @@
             Recalculate();
         }
 
-        private void Recalculate() => CaptionsTextBox.Lines = CreateCaptions(
-            LyricsTextBox.Lines,
-            (int)edHours.Value,
+        private void Recalculate() => CaptionsTextBox.Lines = GetCaptions(
             (int)edMinutes.Value,
             (int)edSeconds.Value,
             (int)edMilliseconds.Value)
@@ -168,33 +168,35 @@
 
         #region Static Methods
 
-        private static IList<string> CreateCaptions(IEnumerable<string> lyrics, int hours, int minutes, int seconds, int milliseconds) =>
-            CreateCaptions(lyrics, new TimeSpan(days: 0, hours: hours, minutes: minutes, seconds: seconds, milliseconds: milliseconds));
+        private IList<string> GetCaptions(int m, int s, int ms) => GetCaptions(new TimeSpan(0, 0, m, s, ms));
 
-        private static IList<string> CreateCaptions(IEnumerable<string> lyrics, TimeSpan timeSpan)
+        private IList<string> GetCaptions(TimeSpan timeSpan)
         {
+            Lyrics.Clear();
+            Lyrics.AddRange(LyricsTextBox.Lines);
             var captions = new List<string>();
             int
-                lyricsCount = lyrics.Count(),
-                lyricsIndex = 0,
+                lyricIndex = 0,
                 itemIndex = 0;
             string
                 startTime,
                 stopTime = "00:00:00,000",
                 previousLyric = string.Empty;
             var totalTime = timeSpan.TotalMilliseconds;
-            foreach (var lyric in lyrics)
+            foreach (var lyric in Lyrics)
             {
-                lyricsIndex++;
+                lyricIndex++;
                 startTime = stopTime;
-                stopTime = TimeSpan.FromMilliseconds(totalTime * lyricsIndex / lyricsCount).ToString(@"hh\:mm\:ss\,fff");
+                stopTime = TimeSpan.FromMilliseconds(totalTime * lyricIndex / Lyrics.Count).ToString(@"hh\:mm\:ss\,fff");
                 if (!string.IsNullOrWhiteSpace(lyric) && lyric != previousLyric) // Add the new lyric line.
                 {
-                    itemIndex++;
-                    captions.Add($"{itemIndex}");
-                    captions.Add($"{startTime} --> {stopTime}");
-                    captions.Add(lyric);
-                    captions.Add(string.Empty);
+                    captions.AddRange(new[]
+                    {
+                        $"{++itemIndex}",
+                        $"{startTime} --> {stopTime}",
+                        lyric,
+                        string.Empty
+                    });
                     previousLyric = lyric;
                 }
                 else if (itemIndex > 0) // The previous lyric line is repeated, so just extend its display time.
