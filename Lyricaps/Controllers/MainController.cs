@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Windows.Forms;
     using Lyricaps.Views;
 
@@ -19,7 +20,7 @@
         private MainForm mView;
 
         private List<string>
-            Lyrics = new List<string>(),
+            Lines = new List<string>(),
             Captions = new List<string>();
 
         private string FileName;
@@ -146,48 +147,49 @@
 
         private void CaptionsChanged() => CaptionsUpdated = true;
 
+        private void EditCaptions() => new CaptionController(this).Execute(
+            1 + CaptionsTextBox.GetLineFromCharIndex(CaptionsTextBox.SelectionStart) / 4);
+
         private void GetCaptions(int m, int s, int ms) => GetCaptions(new TimeSpan(0, 0, m, s, ms));
 
         private void GetCaptions(TimeSpan timeSpan)
         {
-            Lyrics.Clear();
-            Lyrics.AddRange(LyricsTextBox.Lines);
+            Lines.Clear();
+            Lines.AddRange(LyricsTextBox.Lines);
             Captions = new List<string>();
-            int
-                lyricIndex = 0,
-                itemIndex = 0;
+            var itemIndex = 0;
+            var lineEnd = 0.0;
             string
                 startTime,
-                stopTime = "00:00:00,000",
-                previousLyric = string.Empty;
+                endTime = "00:00:00,000",
+                previousText = string.Empty;
             var totalTime = timeSpan.TotalMilliseconds;
-            foreach (var lyric in Lyrics)
+            var linesEnd = Lines.Sum(line => ParseLine(ref line));
+            foreach (var line in Lines)
             {
-                lyricIndex++;
-                startTime = stopTime;
-                stopTime = TimeSpan.FromMilliseconds(totalTime * lyricIndex / Lyrics.Count).ToString(@"hh\:mm\:ss\,fff");
-                if (!string.IsNullOrWhiteSpace(lyric) && lyric != previousLyric) // Add the new lyric line.
+                var text = line;
+                lineEnd += ParseLine(ref text);
+                startTime = endTime;
+                endTime = TimeSpan.FromMilliseconds(totalTime * lineEnd / linesEnd).ToString(@"hh\:mm\:ss\,fff");
+                if (!string.IsNullOrWhiteSpace(text) && text != previousText) // Add the new text.
                 {
                     Captions.AddRange(new[]
                     {
                         $"{++itemIndex}",
-                        $"{startTime} --> {stopTime}",
-                        lyric,
+                        $"{startTime} --> {endTime}",
+                        text,
                         string.Empty
                     });
-                    previousLyric = lyric;
+                    previousText = text;
                 }
-                else if (itemIndex > 0) // The previous lyric line is repeated, so just extend its display time.
+                else if (itemIndex > 0) // The previous lyric is repeated, so just extend its display time.
                 {
                     var captionIndex = 4 * itemIndex - 3;
                     var caption = Captions[captionIndex];
-                    Captions[captionIndex] = $"{caption.Substring(0, 17)}{stopTime}";
+                    Captions[captionIndex] = $"{caption.Substring(0, 17)}{endTime}";
                 }
             }
         }
-
-        private void EditCaptions() => new CaptionController(this).Execute(
-            1 + CaptionsTextBox.GetLineFromCharIndex(CaptionsTextBox.SelectionStart) / 4);
 
         private void LoadCaptions()
         {
@@ -278,6 +280,18 @@
             : Orientation.Horizontal;
 
         private void UpdateFileName() => View.Text = $"{Path.GetFileNameWithoutExtension(FileName)} - Lyric Captions";
+
+        #endregion
+
+        #region Static Methods
+
+        private static double ParseLine(ref string line)
+        {
+            var info = line.StartsWith("..") ? (2, 0.75) : line.StartsWith(".") ? (1, 0.5) : line.StartsWith(":") ? (1, 0.25) : (0, 1.0);
+            if (info.Item1 > 0)
+                line = line.Substring(info.Item1);
+            return info.Item2;
+        }
 
         #endregion
     }
