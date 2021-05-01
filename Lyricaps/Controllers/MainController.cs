@@ -164,7 +164,7 @@
                 endTime = "00:00:00,000",
                 previousText = string.Empty;
             var totalTime = timeSpan.TotalMilliseconds;
-            var linesEnd = Lines.Sum(line => ParseLine(ref line));
+            var linesEnd = Lines.Sum(line => ParseLine(line).Item2);
             foreach (var line in Lines)
             {
                 var text = line;
@@ -285,9 +285,12 @@
 
         #region Static Methods
 
+        private static (int, double) ParseLine(string line) =>
+            line.StartsWith("..") ? (2, 0.75) : line.StartsWith(".") ? (1, 0.5) : line.StartsWith(":") ? (1, 0.25) : (0, 1.0);
+
         private static double ParseLine(ref string line)
         {
-            var info = line.StartsWith("..") ? (2, 0.75) : line.StartsWith(".") ? (1, 0.5) : line.StartsWith(":") ? (1, 0.25) : (0, 1.0);
+            var info = ParseLine(line);
             if (info.Item1 > 0)
                 line = line.Substring(info.Item1);
             return info.Item2;
