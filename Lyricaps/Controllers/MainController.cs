@@ -173,6 +173,8 @@
                 endTime = TimeSpan.FromMilliseconds(totalTime * lineEnd / linesEnd).ToString(@"hh\:mm\:ss\,fff");
                 if (!string.IsNullOrWhiteSpace(text) && text != previousText) // Add the new text.
                 {
+                    if (text == @"\")
+                        text = string.Empty;
                     Captions.AddRange(new[]
                     {
                         $"{++itemIndex}",
