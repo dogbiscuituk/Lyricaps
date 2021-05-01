@@ -187,8 +187,7 @@
                 else if (itemIndex > 0) // The previous lyric is repeated, so just extend its display time.
                 {
                     var captionIndex = 4 * itemIndex - 3;
-                    var caption = Captions[captionIndex];
-                    Captions[captionIndex] = $"{caption.Substring(0, 17)}{endTime}";
+                    Captions[captionIndex] = $"{Captions[captionIndex].Substring(0, 17)}{endTime}";
                 }
             }
         }
