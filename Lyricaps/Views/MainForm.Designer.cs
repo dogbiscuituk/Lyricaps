@@ -40,10 +40,10 @@
             this.EdSeconds = new System.Windows.Forms.NumericUpDown();
             this.CaptionsTextBox = new System.Windows.Forms.TextBox();
             this.PopupCaptions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.PopupCaptionsEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.PopupCaptionsOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.PopupCaptionsSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.PopupCaptionsEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.PopupCaptionsToggleSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
@@ -94,12 +94,12 @@
             this.toolStripMenuItem3,
             this.PopupLyricsToggleSplit});
             this.PopupLyrics.Name = "PopupLyrics";
-            this.PopupLyrics.Size = new System.Drawing.Size(145, 76);
+            this.PopupLyrics.Size = new System.Drawing.Size(156, 76);
             // 
             // PopupLyricsOpen
             // 
             this.PopupLyricsOpen.Name = "PopupLyricsOpen";
-            this.PopupLyricsOpen.Size = new System.Drawing.Size(144, 22);
+            this.PopupLyricsOpen.Size = new System.Drawing.Size(155, 22);
             this.PopupLyricsOpen.Text = "Open Lyrics...";
             this.PopupLyricsOpen.ToolTipText = "Load the song lyrics into this control from a text file.\r\nThe lyrics can also be " +
     "pasted into this control from the clipboard.";
@@ -107,19 +107,19 @@
             // PopupLyricsSave
             // 
             this.PopupLyricsSave.Name = "PopupLyricsSave";
-            this.PopupLyricsSave.Size = new System.Drawing.Size(144, 22);
-            this.PopupLyricsSave.Text = "Save Lyrics...";
+            this.PopupLyricsSave.Size = new System.Drawing.Size(155, 22);
+            this.PopupLyricsSave.Text = "Save Lyrics As...";
             this.PopupLyricsSave.ToolTipText = "Save the song lyrics to a text file.";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(141, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 6);
             // 
             // PopupLyricsToggleSplit
             // 
             this.PopupLyricsToggleSplit.Name = "PopupLyricsToggleSplit";
-            this.PopupLyricsToggleSplit.Size = new System.Drawing.Size(144, 22);
+            this.PopupLyricsToggleSplit.Size = new System.Drawing.Size(155, 22);
             this.PopupLyricsToggleSplit.Text = "Toggle Split";
             this.PopupLyricsToggleSplit.ToolTipText = "Toggle between a horizontally and vertically split window.";
             // 
@@ -174,17 +174,6 @@
             this.PopupCaptions.Name = "PopupCaptions";
             this.PopupCaptions.Size = new System.Drawing.Size(181, 126);
             // 
-            // PopupCaptionsEdit
-            // 
-            this.PopupCaptionsEdit.Name = "PopupCaptionsEdit";
-            this.PopupCaptionsEdit.Size = new System.Drawing.Size(180, 22);
-            this.PopupCaptionsEdit.Text = "Edit Caption...";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
-            // 
             // PopupCaptionsOpen
             // 
             this.PopupCaptionsOpen.Name = "PopupCaptionsOpen";
@@ -195,8 +184,21 @@
             // 
             this.PopupCaptionsSave.Name = "PopupCaptionsSave";
             this.PopupCaptionsSave.Size = new System.Drawing.Size(180, 22);
-            this.PopupCaptionsSave.Text = "Save Captions...";
+            this.PopupCaptionsSave.Text = "Save Captions As...";
             this.PopupCaptionsSave.ToolTipText = "Save the calculated captions to a SubRip format file.";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Visible = false;
+            // 
+            // PopupCaptionsEdit
+            // 
+            this.PopupCaptionsEdit.Name = "PopupCaptionsEdit";
+            this.PopupCaptionsEdit.Size = new System.Drawing.Size(180, 22);
+            this.PopupCaptionsEdit.Text = "Edit Caption...";
+            this.PopupCaptionsEdit.Visible = false;
             // 
             // toolStripMenuItem2
             // 
