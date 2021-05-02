@@ -14,10 +14,10 @@
 
         #region Fields
 
-        private FileController FileController;
-
-        private List<string> Lines = new List<string>();
         internal List<string> Captions = new List<string>();
+
+        private FileController FileController;
+        private List<string> Lines = new List<string>();
 
         #endregion
 
@@ -71,7 +71,7 @@
 
         #region Static Methods
 
-        internal static (int, double) ParseLine(string line) =>
+        private static (int, double) ParseLine(string line) =>
             line.StartsWith("..") ? (2, 0.75) :
             line.StartsWith(".") ? (1, 0.5) :
             line.StartsWith(":") ? (1, 0.25) :
@@ -79,7 +79,7 @@
             line.EndsWith(".") ? (-1, 1.5) :
             line.EndsWith(":") ? (-1, 1.25) : (0, 1.0);
 
-        internal static double ParseLine(ref string line)
+        private static double ParseLine(ref string line)
         {
             var info = ParseLine(line);
             var index = info.Item1;

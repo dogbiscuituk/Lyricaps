@@ -33,16 +33,14 @@
 
         private MainController MainController;
         private CaptionController CaptionController;
-
         private string FileName;
-
-        private bool
-            LyricsEdited,
-            CaptionsUpdated;
+        private bool LyricsEdited, CaptionsUpdated;
 
         #endregion
 
         #region Properties
+
+        internal TextBox LyricsTextBox => MainForm.LyricsTextBox;
 
         private MainForm MainForm => MainController.MainForm;
 
@@ -56,7 +54,6 @@
         private NumericUpDown EdMilliseconds => MainForm.EdMilliseconds;
         private NumericUpDown EdMinutes => MainForm.EdMinutes;
         private NumericUpDown EdSeconds => MainForm.EdSeconds;
-        internal TextBox LyricsTextBox => MainForm.LyricsTextBox;
 
         private string BaseFileName => Path.GetFileNameWithoutExtension(FileName);
 
