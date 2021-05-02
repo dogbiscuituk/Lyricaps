@@ -1,9 +1,7 @@
 ﻿namespace Lyricaps.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Windows.Forms;
     using Lyricaps.Views;
 
@@ -14,6 +12,7 @@
         internal FileController(MainController mainController)
         {
             MainController = mainController;
+            CaptionController = new CaptionController(this);
 
             MainForm.BtnSelectVideoFile.Click += BtnSelectVideoFile_Click;
             MainForm.FormClosing += View_FormClosing;
@@ -33,12 +32,9 @@
         #region Fields
 
         private MainController MainController;
+        private CaptionController CaptionController;
 
         private string FileName;
-
-        private List<string>
-            Lines = new List<string>(),
-            Captions = new List<string>();
 
         private bool
             LyricsEdited,
@@ -60,7 +56,7 @@
         private NumericUpDown EdMilliseconds => MainForm.EdMilliseconds;
         private NumericUpDown EdMinutes => MainForm.EdMinutes;
         private NumericUpDown EdSeconds => MainForm.EdSeconds;
-        private TextBox LyricsTextBox => MainForm.LyricsTextBox;
+        internal TextBox LyricsTextBox => MainForm.LyricsTextBox;
 
         private string BaseFileName => Path.GetFileNameWithoutExtension(FileName);
 
@@ -119,50 +115,6 @@
 
         private void CaptionsChanged() => CaptionsUpdated = true;
 
-        private void GetCaptions(int m, int s, int ms) => GetCaptions(new TimeSpan(0, 0, m, s, ms));
-
-        private void GetCaptions(TimeSpan timeSpan)
-        {
-            Lines.Clear();
-            Lines.AddRange(LyricsTextBox.Lines);
-            Captions.Clear();
-            var itemIndex = 0;
-            var lineEnd = 0.0;
-            string
-                startTime,
-                endTime = "00:00:00,000",
-                previousText = string.Empty;
-            var totalTime = timeSpan.TotalMilliseconds;
-            var linesEnd = Lines.Sum(line => ParseLine(line).Item2);
-            foreach (var line in Lines)
-            {
-                var text = line;
-                lineEnd += ParseLine(ref text);
-                startTime = endTime;
-                endTime = TimeSpan.FromMilliseconds(totalTime * lineEnd / linesEnd).ToString(@"hh\:mm\:ss\,fff");
-                if (!string.IsNullOrWhiteSpace(text) && text != previousText) // Add the new text.
-                {
-                    if (text == @"\")
-                        text = string.Empty;
-                    else
-                        text = $" {text.Trim()} ";
-                    Captions.AddRange(new[]
-                    {
-                        $"{++itemIndex}",
-                        $"{startTime} --> {endTime}",
-                        text,
-                        string.Empty
-                    });
-                    previousText = text;
-                }
-                else if (itemIndex > 0) // The previous lyric is repeated, so just extend its display time.
-                {
-                    var captionIndex = 4 * itemIndex - 3;
-                    Captions[captionIndex] = $"{Captions[captionIndex].Substring(0, 17)}{endTime}";
-                }
-            }
-        }
-
         private void LoadCaptions()
         {
             if (CaptionsOpenDialog.ShowDialog(MainForm) != DialogResult.OK)
@@ -208,8 +160,8 @@
 
         private void Recalculate()
         {
-            GetCaptions((int)EdMinutes.Value, (int)EdSeconds.Value, (int)EdMilliseconds.Value);
-            CaptionsTextBox.Lines = Captions.ToArray();
+            CaptionController.GetCaptions((int)EdMinutes.Value, (int)EdSeconds.Value, (int)EdMilliseconds.Value);
+            CaptionsTextBox.Lines = CaptionController.Captions.ToArray();
         }
 
         private void SaveCaptions()
@@ -256,29 +208,6 @@
             UpdateFileDialog("mp4", VideoOpenDialog);
             UpdateFileDialog("txt", LyricsOpenDialog, LyricsSaveDialog);
             UpdateFileDialog("srt", CaptionsOpenDialog, CaptionsSaveDialog);
-        }
-
-        #endregion
-
-        #region Static Methods
-
-        private static (int, double) ParseLine(string line) =>
-            line.StartsWith("..") ? (2, 0.75) :
-            line.StartsWith(".") ? (1, 0.5) :
-            line.StartsWith(":") ? (1, 0.25) :
-            line.EndsWith("..") ? (-2, 1.75) :
-            line.EndsWith(".") ? (-1, 1.5) :
-            line.EndsWith(":") ? (-1, 1.25) : (0, 1.0);
-
-        private static double ParseLine(ref string line)
-        {
-            var info = ParseLine(line);
-            var index = info.Item1;
-            if (index > 0)
-                line = line.Substring(index);
-            else if (index < 0)
-                line = line.Substring(0, index + line.Length);
-            return info.Item2;
         }
 
         #endregion
