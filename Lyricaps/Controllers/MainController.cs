@@ -175,6 +175,8 @@
                 {
                     if (text == @"\")
                         text = string.Empty;
+                    else
+                        text = $" {text.Trim()} ";
                     Captions.AddRange(new[]
                     {
                         $"{++itemIndex}",
@@ -280,20 +282,43 @@
             ? Orientation.Vertical
             : Orientation.Horizontal;
 
-        private void UpdateFileName() => View.Text = $"{Path.GetFileNameWithoutExtension(FileName)} - Lyric Captions";
+        private string BaseFileName => Path.GetFileNameWithoutExtension(FileName);
+
+        private void UpdateFileDialog(string extension, params FileDialog[] fileDialogs)
+        {
+            foreach (var fileDialog in fileDialogs)
+                if (string.IsNullOrWhiteSpace(fileDialog.FileName))
+                    fileDialog.FileName = $"{BaseFileName}.{extension}";
+        }
+
+        private void UpdateFileName()
+        {
+            View.Text = $"{BaseFileName} - Lyric Captions";
+            UpdateFileDialog("mp4", VideoOpenDialog);
+            UpdateFileDialog("txt", LyricsOpenDialog, LyricsSaveDialog);
+            UpdateFileDialog("srt", CaptionsOpenDialog, CaptionsSaveDialog);
+        }
 
         #endregion
 
         #region Static Methods
 
         private static (int, double) ParseLine(string line) =>
-            line.StartsWith("..") ? (2, 0.75) : line.StartsWith(".") ? (1, 0.5) : line.StartsWith(":") ? (1, 0.25) : (0, 1.0);
+            line.StartsWith("..") ? (2, 0.75) :
+            line.StartsWith(".") ? (1, 0.5) :
+            line.StartsWith(":") ? (1, 0.25) :
+            line.EndsWith("..") ? (-2, 1.75) :
+            line.EndsWith(".") ? (-1, 1.5) :
+            line.EndsWith(":") ? (-1, 1.25) : (0, 1.0);
 
         private static double ParseLine(ref string line)
         {
             var info = ParseLine(line);
-            if (info.Item1 > 0)
-                line = line.Substring(info.Item1);
+            var index = info.Item1;
+            if (index > 0)
+                line = line.Substring(index);
+            else if (index < 0)
+                line = line.Substring(0, index + line.Length);
             return info.Item2;
         }
 
