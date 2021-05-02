@@ -90,6 +90,8 @@
         private SplitContainer SplitContainer => View.SplitContainer;
         private OpenFileDialog VideoOpenDialog => View.VideoOpenDialog;
 
+        private string BaseFileName => Path.GetFileNameWithoutExtension(FileName);
+
         #endregion
 
         #region Event Handlers
@@ -281,8 +283,6 @@
             SplitContainer.Orientation == Orientation.Horizontal
             ? Orientation.Vertical
             : Orientation.Horizontal;
-
-        private string BaseFileName => Path.GetFileNameWithoutExtension(FileName);
 
         private void UpdateFileDialog(string extension, params FileDialog[] fileDialogs)
         {
