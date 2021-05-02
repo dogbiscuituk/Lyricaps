@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CaptionController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Views\CaptionDialog.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -44,7 +44,7 @@
         private NumericUpDown EdMilliseconds => View.EdMilliseconds;
         private NumericUpDown EdMinutes => View.EdMinutes;
         private NumericUpDown EdSeconds => View.EdSeconds;
-        private MainForm MainForm => MainController.View;
+        private MainForm MainForm => MainController.MainForm;
         
         /// <summary>
         /// Used for TimeSpan parsing. SubRip was originally written in France, and uses the comma as millisecond separator.
@@ -58,7 +58,7 @@
         internal void Execute(int captionNumber)
         {
             LoadCaption(captionNumber);
-            View.ShowDialog(MainController.View);
+            View.ShowDialog(MainController.MainForm);
         }
 
         private void LoadCaption(int captionNumber)
