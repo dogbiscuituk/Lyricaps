@@ -74,6 +74,7 @@
             // 
             // LyricsTextBox
             // 
+            this.LyricsTextBox.AllowDrop = true;
             this.LyricsTextBox.ContextMenuStrip = this.PopupLyrics;
             this.LyricsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LyricsTextBox.Location = new System.Drawing.Point(0, 0);
@@ -172,43 +173,43 @@
             this.toolStripMenuItem2,
             this.PopupCaptionsToggleSplit});
             this.PopupCaptions.Name = "PopupCaptions";
-            this.PopupCaptions.Size = new System.Drawing.Size(181, 126);
+            this.PopupCaptions.Size = new System.Drawing.Size(174, 104);
             // 
             // PopupCaptionsOpen
             // 
             this.PopupCaptionsOpen.Name = "PopupCaptionsOpen";
-            this.PopupCaptionsOpen.Size = new System.Drawing.Size(180, 22);
+            this.PopupCaptionsOpen.Size = new System.Drawing.Size(173, 22);
             this.PopupCaptionsOpen.Text = "Open Captions...";
             // 
             // PopupCaptionsSave
             // 
             this.PopupCaptionsSave.Name = "PopupCaptionsSave";
-            this.PopupCaptionsSave.Size = new System.Drawing.Size(180, 22);
+            this.PopupCaptionsSave.Size = new System.Drawing.Size(173, 22);
             this.PopupCaptionsSave.Text = "Save Captions As...";
             this.PopupCaptionsSave.ToolTipText = "Save the calculated captions to a SubRip format file.";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(170, 6);
             this.toolStripMenuItem1.Visible = false;
             // 
             // PopupCaptionsEdit
             // 
             this.PopupCaptionsEdit.Name = "PopupCaptionsEdit";
-            this.PopupCaptionsEdit.Size = new System.Drawing.Size(180, 22);
+            this.PopupCaptionsEdit.Size = new System.Drawing.Size(173, 22);
             this.PopupCaptionsEdit.Text = "Edit Caption...";
             this.PopupCaptionsEdit.Visible = false;
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(170, 6);
             // 
             // PopupCaptionsToggleSplit
             // 
             this.PopupCaptionsToggleSplit.Name = "PopupCaptionsToggleSplit";
-            this.PopupCaptionsToggleSplit.Size = new System.Drawing.Size(180, 22);
+            this.PopupCaptionsToggleSplit.Size = new System.Drawing.Size(173, 22);
             this.PopupCaptionsToggleSplit.Text = "Toggle Split";
             this.PopupCaptionsToggleSplit.ToolTipText = "Toggle between a horizontally and vertically split window.";
             // 

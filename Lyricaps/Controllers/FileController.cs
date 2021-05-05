@@ -24,6 +24,8 @@
             EdMilliseconds.ValueChanged += EdVideoLength_ValueChanged;
             EdMinutes.ValueChanged += EdVideoLength_ValueChanged;
             EdSeconds.ValueChanged += EdVideoLength_ValueChanged;
+            LyricsTextBox.DragDrop += LyricsTextBox_DragDrop;
+            LyricsTextBox.DragEnter += LyricsTextBox_DragEnter;
             LyricsTextBox.TextChanged += LyricsTextBox_TextChanged;
         }
 
@@ -64,6 +66,8 @@
         private void BtnSelectVideoFile_Click(object sender, System.EventArgs e) => LoadDuration();
         private void CaptionsTextBox_TextChanged(object sender, EventArgs e) => CaptionsChanged();
         private void EdVideoLength_ValueChanged(object sender, EventArgs e) => Recalculate();
+        private void LyricsTextBox_DragDrop(object sender, DragEventArgs e) => DropFile(e);
+        private void LyricsTextBox_DragEnter(object sender, DragEventArgs e) => DropCheck(e);
         private void LyricsTextBox_TextChanged(object sender, EventArgs e) => LyricsChanged();
         private void PopupCaptionsOpen_Click(object sender, System.EventArgs e) => LoadCaptions();
         private void PopupCaptionsSave_Click(object sender, System.EventArgs e) => SaveCaptions();
@@ -111,6 +115,15 @@
         }
 
         private void CaptionsChanged() => CaptionsUpdated = true;
+
+        private void DropCheck(DragEventArgs e) =>
+            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.All : DragDropEffects.None;
+
+        private void DropFile(DragEventArgs e)
+        {
+            var fileNames = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            return;
+        }
 
         private void LoadCaptions()
         {
