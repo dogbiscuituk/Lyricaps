@@ -36,11 +36,34 @@
         private void ViewMenu_DropDownOpening(object sender, EventArgs e) => ViewMenuOpening();
         private void ViewHorizontalSplit_Click(object sender, EventArgs e) => Orientation = Orientation.Horizontal;
         private void ViewVerticalSplit_Click(object sender, EventArgs e) => Orientation = Orientation.Vertical;
+        private void HelpAbout_Click(object sender, EventArgs e) => HelpAbout();
         private void PopupToggleSplit_Click(object sender, EventArgs e) => ToggleSplit();
 
         #endregion
 
         #region Methods
+
+        private void HelpAbout() => MessageBox.Show(
+            MainForm,
+            @"LYRICS MARKUP INFORMATION
+
+Blank lines cause the previous line to remain on display
+To actually blank the caption use just a single backslash \
+
+At the start of a line (or on an otherwise empty line):
+
+    . Period = ½ time (50%)
+    : Colon = ¼ time (25%)
+    .. Two periods = ¾ time (75%)
+
+At the end of a nonempty line:
+
+    Period = 1½ time (150%) .
+    Colon = 1¼ time (125%) :
+    Two periods = 1¾ time (175%) ..",
+            "Lyric Captions - version 1.2 by John Michael Kerr",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information);
 
         protected override void InitControllers(Controller parent)
         {
@@ -57,6 +80,7 @@
             MainForm.ViewMenu.DropDownOpening += ViewMenu_DropDownOpening;
             MainForm.ViewHorizontalSplit.Click += ViewHorizontalSplit_Click;
             MainForm.ViewVerticalSplit.Click += ViewVerticalSplit_Click;
+            MainForm.HelpAbout.Click += HelpAbout_Click;
             MainForm.PopupCaptionsToggleSplit.Click += PopupToggleSplit_Click;
             MainForm.PopupLyricsToggleSplit.Click += PopupToggleSplit_Click;
         }

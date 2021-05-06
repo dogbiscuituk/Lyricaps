@@ -14,15 +14,15 @@
 
         #region Fields
 
-        internal List<string> Captions = new List<string>();
+        internal readonly List<string> Captions = new List<string>();
 
-        private List<string> Lines = new List<string>();
+        private readonly List<string> Lines = new List<string>();
 
         #endregion
 
         #region Methods
 
-        internal void GetCaptions(int m, int s, int ms) => GetCaptions(new TimeSpan(0, 0, m, s, ms));
+        internal void GetCaptions(int min, int sec, int ms) => GetCaptions(new TimeSpan(0, 0, min, sec, ms));
 
         private void GetCaptions(TimeSpan timeSpan)
         {
@@ -45,10 +45,7 @@
                 endTime = TimeSpan.FromMilliseconds(totalTime * lineEnd / linesEnd).ToString(@"hh\:mm\:ss\,fff");
                 if (!string.IsNullOrWhiteSpace(text) && text != previousText) // Add the new text.
                 {
-                    if (text == @"\")
-                        text = string.Empty;
-                    else
-                        text = $" {text.Trim()} ";
+                    text = text == @"\" ? string.Empty : $" {text.Trim()} ";
                     Captions.AddRange(new[]
                     {
                         $"{++itemIndex}",

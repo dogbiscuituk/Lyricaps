@@ -2,8 +2,8 @@
 {
     using System.Windows.Forms;
 
-    public partial class MainForm : Form
+    internal partial class MainForm : Form
     {
-        public MainForm() => InitializeComponent();
+        internal MainForm() => InitializeComponent();
     }
 }
