@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.LyricsTextBox = new System.Windows.Forms.TextBox();
             this.PopupLyrics = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.PopupLyricsOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,8 +82,7 @@
             this.LyricsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.LyricsTextBox.Size = new System.Drawing.Size(390, 528);
             this.LyricsTextBox.TabIndex = 1;
-            this.ToolTip.SetToolTip(this.LyricsTextBox, "The lyrics can be pasted into this control from the clipboard.\r\nOr, right-click t" +
-        "o load the song lyrics into this control from a text file.");
+            this.ToolTip.SetToolTip(this.LyricsTextBox, "Drop or paste lyrics here, or \r\nright-click for more options.");
             this.LyricsTextBox.WordWrap = false;
             // 
             // PopupLyrics
@@ -263,7 +261,8 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(784, 33);
             this.panel1.TabIndex = 15;
-            this.ToolTip.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
+            this.ToolTip.SetToolTip(this.panel1, "Specify the duration of the video file, or \r\nclick \"Select video file...\" to get " +
+        "time from file.");
             // 
             // label5
             // 
@@ -328,6 +327,13 @@
             this.LyricsSaveDialog.DefaultExt = "txt";
             this.LyricsSaveDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             this.LyricsSaveDialog.Title = "Save Lyrics File";
+            // 
+            // ToolTip
+            // 
+            this.ToolTip.AutomaticDelay = 1000;
+            this.ToolTip.AutoPopDelay = 5000;
+            this.ToolTip.InitialDelay = 100;
+            this.ToolTip.ReshowDelay = 100;
             // 
             // CaptionsOpenDialog
             // 

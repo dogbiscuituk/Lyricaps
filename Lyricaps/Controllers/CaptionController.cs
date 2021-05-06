@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class CaptionController
+    internal class CaptionController : Controller
     {
         #region Constructor
 
-        internal CaptionController(FileController fileController) => FileController = fileController;
+        internal CaptionController(Controller parent) : base(parent) { }
 
         #endregion
 
@@ -16,7 +16,6 @@
 
         internal List<string> Captions = new List<string>();
 
-        private FileController FileController;
         private List<string> Lines = new List<string>();
 
         #endregion
@@ -28,7 +27,7 @@
         private void GetCaptions(TimeSpan timeSpan)
         {
             Lines.Clear();
-            Lines.AddRange(FileController.LyricsTextBox.Lines);
+            Lines.AddRange(((FileController)Parent).LyricsTextBox.Lines);
             Captions.Clear();
             var itemIndex = 0;
             var lineEnd = 0.0;

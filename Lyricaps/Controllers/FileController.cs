@@ -5,35 +5,16 @@
     using System.Windows.Forms;
     using Lyricaps.Views;
 
-    internal class FileController
+    internal class FileController : Controller
     {
         #region Constructor
 
-        internal FileController(MainController mainController)
-        {
-            MainController = mainController;
-            CaptionController = new CaptionController(this);
-
-            MainForm.BtnSelectVideoFile.Click += BtnSelectVideoFile_Click;
-            MainForm.FormClosing += View_FormClosing;
-            MainForm.PopupLyricsOpen.Click += PopupLyricsOpen_Click;
-            MainForm.PopupLyricsSave.Click += PopupLyricsSave_Click;
-            MainForm.PopupCaptionsOpen.Click += PopupCaptionsOpen_Click;
-            MainForm.PopupCaptionsSave.Click += PopupCaptionsSave_Click;
-            CaptionsTextBox.TextChanged += CaptionsTextBox_TextChanged;
-            EdMilliseconds.ValueChanged += EdVideoLength_ValueChanged;
-            EdMinutes.ValueChanged += EdVideoLength_ValueChanged;
-            EdSeconds.ValueChanged += EdVideoLength_ValueChanged;
-            LyricsTextBox.DragDrop += LyricsTextBox_DragDrop;
-            LyricsTextBox.DragEnter += LyricsTextBox_DragEnter;
-            LyricsTextBox.TextChanged += LyricsTextBox_TextChanged;
-        }
+        internal FileController(Controller parent) : base(parent) { }
 
         #endregion
 
         #region Fields
 
-        private MainController MainController;
         private CaptionController CaptionController;
         private string FileName;
         private bool LyricsEdited, CaptionsUpdated;
@@ -44,7 +25,7 @@
 
         internal TextBox LyricsTextBox => MainForm.LyricsTextBox;
 
-        private MainForm MainForm => MainController.MainForm;
+        private MainForm MainForm => ((MainController)Parent).MainForm;
 
         private OpenFileDialog CaptionsOpenDialog => MainForm.CaptionsOpenDialog;
         private SaveFileDialog CaptionsSaveDialog => MainForm.CaptionsSaveDialog;
@@ -122,7 +103,32 @@
         private void DropFile(DragEventArgs e)
         {
             var fileNames = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            return;
+            foreach (var fileName in fileNames)
+                LoadLyrics(fileName);
+        }
+
+        protected override void InitControllers(Controller parent)
+        {
+            base.InitControllers(parent);
+            CaptionController = new CaptionController(this);
+        }
+
+        protected override void InitEvents()
+        {
+            base.InitEvents();
+            MainForm.BtnSelectVideoFile.Click += BtnSelectVideoFile_Click;
+            MainForm.FormClosing += View_FormClosing;
+            MainForm.PopupLyricsOpen.Click += PopupLyricsOpen_Click;
+            MainForm.PopupLyricsSave.Click += PopupLyricsSave_Click;
+            MainForm.PopupCaptionsOpen.Click += PopupCaptionsOpen_Click;
+            MainForm.PopupCaptionsSave.Click += PopupCaptionsSave_Click;
+            CaptionsTextBox.TextChanged += CaptionsTextBox_TextChanged;
+            EdMilliseconds.ValueChanged += EdVideoLength_ValueChanged;
+            EdMinutes.ValueChanged += EdVideoLength_ValueChanged;
+            EdSeconds.ValueChanged += EdVideoLength_ValueChanged;
+            LyricsTextBox.DragDrop += LyricsTextBox_DragDrop;
+            LyricsTextBox.DragEnter += LyricsTextBox_DragEnter;
+            LyricsTextBox.TextChanged += LyricsTextBox_TextChanged;
         }
 
         private void LoadCaptions()
@@ -152,9 +158,13 @@
 
         private void LoadLyrics()
         {
-            if (LyricsOpenDialog.ShowDialog(MainForm) != DialogResult.OK)
-                return;
-            FileName = LyricsOpenDialog.FileName;
+            if (LyricsOpenDialog.ShowDialog(MainForm) == DialogResult.OK)
+                LoadLyrics(LyricsOpenDialog.FileName);
+        }
+
+        private void LoadLyrics(string fileName)
+        {
+            FileName = fileName;
             using (var reader = new StreamReader(FileName))
                 LyricsTextBox.Text = reader.ReadToEnd();
             LyricsSaveDialog.FileName = FileName;
