@@ -40,22 +40,29 @@
 
         private string BaseFileName => Path.GetFileNameWithoutExtension(FileName);
 
+        private bool CanSaveCaptions => CaptionsUpdated && !string.IsNullOrWhiteSpace(CaptionsSaveDialog.FileName);
+        private bool CanSaveLyrics => LyricsEdited && !string.IsNullOrWhiteSpace(LyricsSaveDialog.FileName);
+
         #endregion
 
         #region Event Handlers
 
-        private void FileSelectAvSource_Click(object sender, System.EventArgs e) => LoadDuration();
+        private void Menu_Opening(object sender, EventArgs e) => UpdateUI();
 
-        private void PopupCaptionsOpen_Click(object sender, System.EventArgs e) => LoadCaptions();
-        private void PopupCaptionsSave_Click(object sender, System.EventArgs e) => SaveCaptions();
-        private void PopupLyricsOpen_Click(object sender, System.EventArgs e) => LoadLyrics();
-        private void PopupLyricsSave_Click(object sender, System.EventArgs e) => SaveLyrics();
+        private void FileSelectAvSource_Click(object sender, EventArgs e) => LoadDuration();
+        private void FileOpenCaptions_Click(object sender, EventArgs e) => LoadCaptions();
+        private void FileSaveCaptions_Click(object sender, EventArgs e) => SaveCaptions();
+        private void FileSaveCaptionsAs_Click(object sender, EventArgs e) => SaveCaptionsAs();
+        private void FileOpenLyrics_Click(object sender, EventArgs e) => LoadLyrics();
+        private void FileSaveLyrics_Click(object sender, EventArgs e) => SaveLyrics();
+        private void FileSaveLyricsAs_Click(object sender, EventArgs e) => SaveLyricsAs();
 
-        private void CaptionsTextBox_TextChanged(object sender, EventArgs e) => CaptionsChanged();
-        private void EdVideoLength_ValueChanged(object sender, EventArgs e) => Recalculate();
-        private void LyricsTextBox_TextChanged(object sender, EventArgs e) => LyricsChanged();
         private void MainForm_DragDrop(object sender, DragEventArgs e) => DropFile(e);
         private void MainForm_DragEnter(object sender, DragEventArgs e) => DropCheck(e);
+
+        private void CaptionsTextBox_TextChanged(object sender, EventArgs e) => CaptionsUpdated = true;
+        private void EdVideoLength_ValueChanged(object sender, EventArgs e) => Recalculate();
+        private void LyricsTextBox_TextChanged(object sender, EventArgs e) => LyricsChanged();
         private void View_FormClosing(object sender, FormClosingEventArgs e) => e.Cancel = CancelClose(e.CloseReason);
 
         #endregion
@@ -75,7 +82,7 @@
                     MessageBoxIcon.Warning))
                 {
                     case DialogResult.Yes:
-                        SaveLyrics();
+                        SaveLyricsAs();
                         break;
                     case DialogResult.Cancel:
                         return true;
@@ -89,15 +96,13 @@
                     MessageBoxIcon.Warning))
                 {
                     case DialogResult.Yes:
-                        SaveCaptions();
+                        SaveCaptionsAs();
                         break;
                     case DialogResult.Cancel:
                         return true;
                 }
             return false;
         }
-
-        private void CaptionsChanged() => CaptionsUpdated = true;
 
         private void DropCheck(DragEventArgs e) =>
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.All : DragDropEffects.None;
@@ -128,17 +133,30 @@
         protected override void InitEvents()
         {
             base.InitEvents();
+
+            MainForm.FileMenu.DropDownOpening += Menu_Opening;
+
             MainForm.FileSelectAvSource.Click += FileSelectAvSource_Click;
-            MainForm.FileLoadLyrics.Click += PopupLyricsOpen_Click;
-            MainForm.FileSaveLyrics.Click += PopupLyricsSave_Click;
-            MainForm.FileSaveCaptions.Click += PopupCaptionsSave_Click;
+            MainForm.FileLoadLyrics.Click += FileOpenLyrics_Click;
+            MainForm.FileSaveLyrics.Click += FileSaveLyrics_Click;
+            MainForm.FileSaveLyricsAs.Click += FileSaveLyricsAs_Click;
+            MainForm.FileSaveCaptions.Click += FileSaveCaptions_Click;
+            MainForm.FileSaveCaptionsAs.Click += FileSaveCaptionsAs_Click;
+
+            MainForm.PopupLyrics.Opening += Menu_Opening;
+            MainForm.PopupLyricsOpen.Click += FileOpenLyrics_Click;
+            MainForm.PopupLyricsSave.Click += FileSaveLyrics_Click;
+            MainForm.PopupLyricsSaveAs.Click += FileSaveLyricsAs_Click;
+
+            MainForm.PopupCaptions.Opening += Menu_Opening;
+            MainForm.PopupCaptionsOpen.Click += FileOpenCaptions_Click;
+            MainForm.PopupCaptionsSave.Click += FileSaveCaptions_Click;
+            MainForm.PopupCaptionsSaveAs.Click += FileSaveCaptionsAs_Click;
+
             MainForm.DragDrop += MainForm_DragDrop;
             MainForm.DragEnter += MainForm_DragEnter;
             MainForm.FormClosing += View_FormClosing;
-            MainForm.PopupLyricsOpen.Click += PopupLyricsOpen_Click;
-            MainForm.PopupLyricsSave.Click += PopupLyricsSave_Click;
-            MainForm.PopupCaptionsOpen.Click += PopupCaptionsOpen_Click;
-            MainForm.PopupCaptionsSave.Click += PopupCaptionsSave_Click;
+
             CaptionsTextBox.TextChanged += CaptionsTextBox_TextChanged;
             EdMilliseconds.ValueChanged += EdVideoLength_ValueChanged;
             EdMinutes.ValueChanged += EdVideoLength_ValueChanged;
@@ -160,9 +178,8 @@
 
         private void LoadDuration()
         {
-            if (VideoOpenDialog.ShowDialog(MainForm) != DialogResult.OK)
-                return;
-            LoadDuration(VideoOpenDialog.FileName);
+            if (VideoOpenDialog.ShowDialog(MainForm) == DialogResult.OK)
+                LoadDuration(VideoOpenDialog.FileName);
         }
 
         private void LoadDuration(string fileName)
@@ -206,8 +223,6 @@
 
         private void SaveCaptions()
         {
-            if (CaptionsSaveDialog.ShowDialog(MainForm) != DialogResult.OK)
-                return;
             FileName = CaptionsSaveDialog.FileName;
             using (var writer = new StreamWriter(FileName))
             {
@@ -219,10 +234,14 @@
             UpdateFileName();
         }
 
+        private void SaveCaptionsAs()
+        {
+            if (CaptionsSaveDialog.ShowDialog(MainForm) == DialogResult.OK)
+                SaveCaptions();
+        }
+
         private void SaveLyrics()
         {
-            if (LyricsSaveDialog.ShowDialog(MainForm) != DialogResult.OK)
-                return;
             FileName = LyricsSaveDialog.FileName;
             using (var writer = new StreamWriter(FileName))
             {
@@ -235,11 +254,23 @@
             UpdateFileName();
         }
 
+        private void SaveLyricsAs()
+        {
+            if (LyricsSaveDialog.ShowDialog(MainForm) == DialogResult.OK)
+                SaveLyrics();
+        }
+
         private void UpdateFileDialog(string extension, params FileDialog[] fileDialogs)
         {
             foreach (var fileDialog in fileDialogs)
                 if (string.IsNullOrWhiteSpace(fileDialog.FileName))
                     fileDialog.FileName = $"{BaseFileName}.{extension}";
+        }
+
+        private void UpdateUI()
+        {
+            MainForm.FileSaveLyrics.Enabled = MainForm.PopupLyricsSave.Enabled = CanSaveLyrics;
+            MainForm.FileSaveCaptions.Enabled = MainForm.PopupCaptionsSave.Enabled = CanSaveCaptions;
         }
 
         private void UpdateFileName()
