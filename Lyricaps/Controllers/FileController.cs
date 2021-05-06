@@ -267,18 +267,18 @@
                     fileDialog.FileName = $"{BaseFileName}.{extension}";
         }
 
-        private void UpdateUI()
-        {
-            MainForm.FileSaveLyrics.Enabled = MainForm.PopupLyricsSave.Enabled = CanSaveLyrics;
-            MainForm.FileSaveCaptions.Enabled = MainForm.PopupCaptionsSave.Enabled = CanSaveCaptions;
-        }
-
         private void UpdateFileName()
         {
             MainForm.Text = $"{BaseFileName} - Lyric Captions";
             UpdateFileDialog("mp4", VideoOpenDialog);
             UpdateFileDialog("txt", LyricsOpenDialog, LyricsSaveDialog);
             UpdateFileDialog("srt", CaptionsOpenDialog, CaptionsSaveDialog);
+        }
+
+        private void UpdateUI()
+        {
+            MainForm.FileSaveLyrics.Enabled = MainForm.PopupLyricsSave.Enabled = CanSaveLyrics;
+            MainForm.FileSaveCaptions.Enabled = MainForm.PopupCaptionsSave.Enabled = CanSaveCaptions;
         }
 
         #endregion

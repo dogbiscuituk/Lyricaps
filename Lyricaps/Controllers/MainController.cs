@@ -20,23 +20,23 @@
 
         #region Properties
 
-        private SplitContainer SplitContainer => MainForm.SplitContainer;
-
         private Orientation Orientation
         {
             get => SplitContainer.Orientation;
             set => SplitContainer.Orientation = value;
         }
 
+        private SplitContainer SplitContainer => MainForm.SplitContainer;
+
         #endregion
 
         #region Event Handlers
 
         private void FileExit_Click(object sender, EventArgs e) => MainForm.Close();
-        private void PopupToggleSplit_Click(object sender, EventArgs e) => ToggleSplit();
-        private void ViewHorizontalSplit_Click(object sender, EventArgs e) => Orientation = Orientation.Horizontal;
         private void ViewMenu_DropDownOpening(object sender, EventArgs e) => ViewMenuOpening();
+        private void ViewHorizontalSplit_Click(object sender, EventArgs e) => Orientation = Orientation.Horizontal;
         private void ViewVerticalSplit_Click(object sender, EventArgs e) => Orientation = Orientation.Vertical;
+        private void PopupToggleSplit_Click(object sender, EventArgs e) => ToggleSplit();
 
         #endregion
 
@@ -52,6 +52,7 @@
         protected override void InitEvents()
         {
             base.InitEvents();
+
             MainForm.FileExit.Click += FileExit_Click;
             MainForm.ViewMenu.DropDownOpening += ViewMenu_DropDownOpening;
             MainForm.ViewHorizontalSplit.Click += ViewHorizontalSplit_Click;
