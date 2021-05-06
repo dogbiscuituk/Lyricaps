@@ -35,8 +35,6 @@
             this.PopupLyricsSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.PopupLyricsToggleSplit = new System.Windows.Forms.ToolStripMenuItem();
-            this.EdMinutes = new System.Windows.Forms.NumericUpDown();
-            this.EdSeconds = new System.Windows.Forms.NumericUpDown();
             this.CaptionsTextBox = new System.Windows.Forms.TextBox();
             this.PopupCaptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.PopupCaptionsOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,42 +43,62 @@
             this.PopupCaptionsEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.PopupCaptionsToggleSplit = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.SplitContainer = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.EdMilliseconds = new System.Windows.Forms.NumericUpDown();
-            this.BtnSelectVideoFile = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.VideoOpenDialog = new System.Windows.Forms.OpenFileDialog();
+            this.AvOpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.LyricsOpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.CaptionsSaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.LyricsSaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CaptionsOpenDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.EdMinutes = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.EdSeconds = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.EdMilliseconds = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.MainMenu = new System.Windows.Forms.MenuStrip();
+            this.FileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileSelectAvSource = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.FileLoadLyrics = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileSaveLyrics = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileSaveCaptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.FileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewHorizontalSplit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewVerticalSplit = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.PopupLyrics.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EdMinutes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EdSeconds)).BeginInit();
             this.PopupCaptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).BeginInit();
             this.SplitContainer.Panel1.SuspendLayout();
             this.SplitContainer.Panel2.SuspendLayout();
             this.SplitContainer.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.toolStripContainer1.ContentPanel.SuspendLayout();
+            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EdMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdSeconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EdMilliseconds)).BeginInit();
+            this.MainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // LyricsTextBox
             // 
-            this.LyricsTextBox.AllowDrop = true;
             this.LyricsTextBox.ContextMenuStrip = this.PopupLyrics;
             this.LyricsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LyricsTextBox.Location = new System.Drawing.Point(0, 0);
+            this.LyricsTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.LyricsTextBox.Multiline = true;
             this.LyricsTextBox.Name = "LyricsTextBox";
             this.LyricsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.LyricsTextBox.Size = new System.Drawing.Size(390, 528);
+            this.LyricsTextBox.Size = new System.Drawing.Size(390, 504);
             this.LyricsTextBox.TabIndex = 1;
             this.ToolTip.SetToolTip(this.LyricsTextBox, "Drop or paste lyrics here, or \r\nright-click for more options.");
             this.LyricsTextBox.WordWrap = false;
@@ -122,41 +140,17 @@
             this.PopupLyricsToggleSplit.Text = "Toggle Split";
             this.PopupLyricsToggleSplit.ToolTipText = "Toggle between a horizontally and vertically split window.";
             // 
-            // EdMinutes
-            // 
-            this.EdMinutes.Location = new System.Drawing.Point(93, 6);
-            this.EdMinutes.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.EdMinutes.Name = "EdMinutes";
-            this.EdMinutes.Size = new System.Drawing.Size(35, 20);
-            this.EdMinutes.TabIndex = 2;
-            this.EdMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // EdSeconds
-            // 
-            this.EdSeconds.Location = new System.Drawing.Point(163, 6);
-            this.EdSeconds.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.EdSeconds.Name = "EdSeconds";
-            this.EdSeconds.Size = new System.Drawing.Size(35, 20);
-            this.EdSeconds.TabIndex = 3;
-            this.EdSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // CaptionsTextBox
             // 
             this.CaptionsTextBox.ContextMenuStrip = this.PopupCaptions;
             this.CaptionsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CaptionsTextBox.Location = new System.Drawing.Point(0, 0);
+            this.CaptionsTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CaptionsTextBox.Multiline = true;
             this.CaptionsTextBox.Name = "CaptionsTextBox";
+            this.CaptionsTextBox.ReadOnly = true;
             this.CaptionsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.CaptionsTextBox.Size = new System.Drawing.Size(390, 528);
+            this.CaptionsTextBox.Size = new System.Drawing.Size(389, 504);
             this.CaptionsTextBox.TabIndex = 4;
             this.ToolTip.SetToolTip(this.CaptionsTextBox, "The calculated captions appear here.\r\nRight-click to save them to a SubRip file.");
             this.CaptionsTextBox.WordWrap = false;
@@ -211,28 +205,11 @@
             this.PopupCaptionsToggleSplit.Text = "Toggle Split";
             this.PopupCaptionsToggleSplit.ToolTipText = "Toggle between a horizontally and vertically split window.";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(204, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "sec";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(134, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(23, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "min";
-            // 
             // SplitContainer
             // 
             this.SplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SplitContainer.Location = new System.Drawing.Point(0, 33);
+            this.SplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.SplitContainer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SplitContainer.Name = "SplitContainer";
             // 
             // SplitContainer.Panel1
@@ -242,74 +219,15 @@
             // SplitContainer.Panel2
             // 
             this.SplitContainer.Panel2.Controls.Add(this.CaptionsTextBox);
-            this.SplitContainer.Size = new System.Drawing.Size(784, 528);
+            this.SplitContainer.Size = new System.Drawing.Size(784, 504);
             this.SplitContainer.SplitterDistance = 390;
+            this.SplitContainer.SplitterWidth = 5;
             this.SplitContainer.TabIndex = 8;
             // 
-            // panel1
+            // AvOpenDialog
             // 
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.EdMilliseconds);
-            this.panel1.Controls.Add(this.BtnSelectVideoFile);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.EdSeconds);
-            this.panel1.Controls.Add(this.EdMinutes);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(784, 33);
-            this.panel1.TabIndex = 15;
-            this.ToolTip.SetToolTip(this.panel1, "Specify the duration of the video file, or \r\nclick \"Select video file...\" to get " +
-        "time from file.");
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(281, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(20, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "ms";
-            // 
-            // EdMilliseconds
-            // 
-            this.EdMilliseconds.Location = new System.Drawing.Point(234, 6);
-            this.EdMilliseconds.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.EdMilliseconds.Name = "EdMilliseconds";
-            this.EdMilliseconds.Size = new System.Drawing.Size(41, 20);
-            this.EdMilliseconds.TabIndex = 18;
-            this.EdMilliseconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // BtnSelectVideoFile
-            // 
-            this.BtnSelectVideoFile.Location = new System.Drawing.Point(307, 6);
-            this.BtnSelectVideoFile.Name = "BtnSelectVideoFile";
-            this.BtnSelectVideoFile.Size = new System.Drawing.Size(117, 23);
-            this.BtnSelectVideoFile.TabIndex = 17;
-            this.BtnSelectVideoFile.Text = "Select video file...";
-            this.ToolTip.SetToolTip(this.BtnSelectVideoFile, "Click this button to read the duration directly from the selected media source.");
-            this.BtnSelectVideoFile.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Video duration";
-            // 
-            // VideoOpenDialog
-            // 
-            this.VideoOpenDialog.Filter = "Video files (*.mov;*.mp4)|*.mov;*.mp4|Audio files (*.wav;*.mp3)|*.wav;*.mp3|All f" +
-    "iles (*.*)|*.*";
-            this.VideoOpenDialog.Title = "Select a Video File";
+            this.AvOpenDialog.Filter = "AV files (*.mov;*.mp4;*.wav;*.mp3)|*.mov;*.mp4;*.wav;*.mp3|All files (*.*)|*.*";
+            this.AvOpenDialog.Title = "Select Audio or Video File";
             // 
             // LyricsOpenDialog
             // 
@@ -340,19 +258,237 @@
             this.CaptionsOpenDialog.Filter = "SubRip files (*.srt)|*.srt|All files (*.*)|*.*";
             this.CaptionsOpenDialog.Title = "Open Captions File";
             // 
+            // toolStripContainer1
+            // 
+            // 
+            // toolStripContainer1.ContentPanel
+            // 
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.SplitContainer);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.flowLayoutPanel1);
+            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(784, 537);
+            this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.toolStripContainer1.Name = "toolStripContainer1";
+            this.toolStripContainer1.Size = new System.Drawing.Size(784, 561);
+            this.toolStripContainer1.TabIndex = 16;
+            this.toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.MainMenu);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.label1);
+            this.flowLayoutPanel1.Controls.Add(this.EdMinutes);
+            this.flowLayoutPanel1.Controls.Add(this.label3);
+            this.flowLayoutPanel1.Controls.Add(this.EdSeconds);
+            this.flowLayoutPanel1.Controls.Add(this.label2);
+            this.flowLayoutPanel1.Controls.Add(this.EdMilliseconds);
+            this.flowLayoutPanel1.Controls.Add(this.label5);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 504);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(784, 33);
+            this.flowLayoutPanel1.TabIndex = 21;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 29);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Song duration";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // EdMinutes
+            // 
+            this.EdMinutes.Location = new System.Drawing.Point(100, 4);
+            this.EdMinutes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.EdMinutes.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.EdMinutes.Name = "EdMinutes";
+            this.EdMinutes.Size = new System.Drawing.Size(41, 25);
+            this.EdMinutes.TabIndex = 2;
+            this.EdMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(147, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 29);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "min";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // EdSeconds
+            // 
+            this.EdSeconds.Location = new System.Drawing.Point(187, 4);
+            this.EdSeconds.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.EdSeconds.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.EdSeconds.Name = "EdSeconds";
+            this.EdSeconds.Size = new System.Drawing.Size(41, 25);
+            this.EdSeconds.TabIndex = 3;
+            this.EdSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(234, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 29);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "sec";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // EdMilliseconds
+            // 
+            this.EdMilliseconds.Location = new System.Drawing.Point(276, 4);
+            this.EdMilliseconds.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.EdMilliseconds.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.EdMilliseconds.Name = "EdMilliseconds";
+            this.EdMilliseconds.Size = new System.Drawing.Size(48, 25);
+            this.EdMilliseconds.TabIndex = 18;
+            this.EdMilliseconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(330, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(32, 29);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "ms";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // MainMenu
+            // 
+            this.MainMenu.Dock = System.Windows.Forms.DockStyle.None;
+            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileMenu,
+            this.ViewMenu,
+            this.HelpMenu});
+            this.MainMenu.Location = new System.Drawing.Point(0, 0);
+            this.MainMenu.Name = "MainMenu";
+            this.MainMenu.Size = new System.Drawing.Size(784, 24);
+            this.MainMenu.TabIndex = 0;
+            this.MainMenu.Text = "menuStrip1";
+            // 
+            // FileMenu
+            // 
+            this.FileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileSelectAvSource,
+            this.toolStripMenuItem4,
+            this.FileLoadLyrics,
+            this.FileSaveLyrics,
+            this.FileSaveCaptions,
+            this.toolStripMenuItem5,
+            this.FileExit});
+            this.FileMenu.Name = "FileMenu";
+            this.FileMenu.Size = new System.Drawing.Size(37, 20);
+            this.FileMenu.Text = "&File";
+            // 
+            // FileSelectAvSource
+            // 
+            this.FileSelectAvSource.Name = "FileSelectAvSource";
+            this.FileSelectAvSource.Size = new System.Drawing.Size(170, 22);
+            this.FileSelectAvSource.Text = "Select AV Source...";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(167, 6);
+            // 
+            // FileLoadLyrics
+            // 
+            this.FileLoadLyrics.Name = "FileLoadLyrics";
+            this.FileLoadLyrics.Size = new System.Drawing.Size(170, 22);
+            this.FileLoadLyrics.Text = "Load Lyrics";
+            // 
+            // FileSaveLyrics
+            // 
+            this.FileSaveLyrics.Name = "FileSaveLyrics";
+            this.FileSaveLyrics.Size = new System.Drawing.Size(170, 22);
+            this.FileSaveLyrics.Text = "Save Lyrics";
+            // 
+            // FileSaveCaptions
+            // 
+            this.FileSaveCaptions.Name = "FileSaveCaptions";
+            this.FileSaveCaptions.Size = new System.Drawing.Size(170, 22);
+            this.FileSaveCaptions.Text = "Save Captions";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(167, 6);
+            // 
+            // FileExit
+            // 
+            this.FileExit.Name = "FileExit";
+            this.FileExit.Size = new System.Drawing.Size(170, 22);
+            this.FileExit.Text = "Exit";
+            // 
+            // ViewMenu
+            // 
+            this.ViewMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ViewHorizontalSplit,
+            this.ViewVerticalSplit});
+            this.ViewMenu.Name = "ViewMenu";
+            this.ViewMenu.Size = new System.Drawing.Size(44, 20);
+            this.ViewMenu.Text = "&View";
+            // 
+            // ViewHorizontalSplit
+            // 
+            this.ViewHorizontalSplit.Name = "ViewHorizontalSplit";
+            this.ViewHorizontalSplit.Size = new System.Drawing.Size(155, 22);
+            this.ViewHorizontalSplit.Text = "&Horizontal Split";
+            // 
+            // ViewVerticalSplit
+            // 
+            this.ViewVerticalSplit.Name = "ViewVerticalSplit";
+            this.ViewVerticalSplit.Size = new System.Drawing.Size(155, 22);
+            this.ViewVerticalSplit.Text = "&Vertical Split";
+            // 
+            // HelpMenu
+            // 
+            this.HelpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.HelpAbout});
+            this.HelpMenu.Name = "HelpMenu";
+            this.HelpMenu.Size = new System.Drawing.Size(44, 20);
+            this.HelpMenu.Text = "&Help";
+            // 
+            // HelpAbout
+            // 
+            this.HelpAbout.Name = "HelpAbout";
+            this.HelpAbout.Size = new System.Drawing.Size(107, 22);
+            this.HelpAbout.Text = "&About";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AllowDrop = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.SplitContainer);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.toolStripContainer1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MainMenuStrip = this.MainMenu;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "MainForm";
             this.Text = "Lyric Captions";
             this.PopupLyrics.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.EdMinutes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EdSeconds)).EndInit();
             this.PopupCaptions.ResumeLayout(false);
             this.SplitContainer.Panel1.ResumeLayout(false);
             this.SplitContainer.Panel1.PerformLayout();
@@ -360,44 +496,66 @@
             this.SplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).EndInit();
             this.SplitContainer.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
+            this.toolStripContainer1.ResumeLayout(false);
+            this.toolStripContainer1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.EdMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EdSeconds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EdMilliseconds)).EndInit();
+            this.MainMenu.ResumeLayout(false);
+            this.MainMenu.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         internal System.Windows.Forms.TextBox LyricsTextBox;
-        internal System.Windows.Forms.NumericUpDown EdMinutes;
-        internal System.Windows.Forms.NumericUpDown EdSeconds;
         internal System.Windows.Forms.TextBox CaptionsTextBox;
-        internal System.Windows.Forms.Label label2;
-        internal System.Windows.Forms.Label label3;
         internal System.Windows.Forms.SplitContainer SplitContainer;
         internal System.Windows.Forms.ContextMenuStrip PopupLyrics;
         internal System.Windows.Forms.ToolStripMenuItem PopupLyricsOpen;
         internal System.Windows.Forms.ToolStripMenuItem PopupLyricsSave;
         internal System.Windows.Forms.ContextMenuStrip PopupCaptions;
         internal System.Windows.Forms.ToolStripMenuItem PopupCaptionsSave;
-        internal System.Windows.Forms.Panel panel1;
-        internal System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.Button BtnSelectVideoFile;
-        internal System.Windows.Forms.OpenFileDialog VideoOpenDialog;
+        internal System.Windows.Forms.OpenFileDialog AvOpenDialog;
         internal System.Windows.Forms.OpenFileDialog LyricsOpenDialog;
         internal System.Windows.Forms.SaveFileDialog CaptionsSaveDialog;
         internal System.Windows.Forms.SaveFileDialog LyricsSaveDialog;
         internal System.Windows.Forms.ToolStripMenuItem PopupLyricsToggleSplit;
         internal System.Windows.Forms.ToolStripMenuItem PopupCaptionsToggleSplit;
         internal System.Windows.Forms.ToolTip ToolTip;
-        internal System.Windows.Forms.Label label5;
-        internal System.Windows.Forms.NumericUpDown EdMilliseconds;
         internal System.Windows.Forms.ToolStripMenuItem PopupCaptionsEdit;
         internal System.Windows.Forms.ToolStripMenuItem PopupCaptionsOpen;
         internal System.Windows.Forms.OpenFileDialog CaptionsOpenDialog;
         internal System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         internal System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         internal System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        internal System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        internal System.Windows.Forms.MenuStrip MainMenu;
+        internal System.Windows.Forms.ToolStripMenuItem FileMenu;
+        internal System.Windows.Forms.ToolStripMenuItem FileSelectAvSource;
+        internal System.Windows.Forms.ToolStripMenuItem FileLoadLyrics;
+        internal System.Windows.Forms.ToolStripMenuItem FileSaveLyrics;
+        internal System.Windows.Forms.ToolStripMenuItem FileSaveCaptions;
+        internal System.Windows.Forms.ToolStripMenuItem FileExit;
+        internal System.Windows.Forms.ToolStripMenuItem HelpMenu;
+        internal System.Windows.Forms.ToolStripMenuItem HelpAbout;
+        internal System.Windows.Forms.ToolStripMenuItem ViewMenu;
+        internal System.Windows.Forms.ToolStripMenuItem ViewHorizontalSplit;
+        internal System.Windows.Forms.ToolStripMenuItem ViewVerticalSplit;
+        internal System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        internal System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        internal System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.NumericUpDown EdMinutes;
+        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.NumericUpDown EdSeconds;
+        internal System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.NumericUpDown EdMilliseconds;
+        internal System.Windows.Forms.Label label5;
     }
 }
 

@@ -31,7 +31,7 @@
         private SaveFileDialog CaptionsSaveDialog => MainForm.CaptionsSaveDialog;
         private OpenFileDialog LyricsOpenDialog => MainForm.LyricsOpenDialog;
         private SaveFileDialog LyricsSaveDialog => MainForm.LyricsSaveDialog;
-        private OpenFileDialog VideoOpenDialog => MainForm.VideoOpenDialog;
+        private OpenFileDialog VideoOpenDialog => MainForm.AvOpenDialog;
 
         private TextBox CaptionsTextBox => MainForm.CaptionsTextBox;
         private NumericUpDown EdMilliseconds => MainForm.EdMilliseconds;
@@ -44,16 +44,18 @@
 
         #region Event Handlers
 
-        private void BtnSelectVideoFile_Click(object sender, System.EventArgs e) => LoadDuration();
-        private void CaptionsTextBox_TextChanged(object sender, EventArgs e) => CaptionsChanged();
-        private void EdVideoLength_ValueChanged(object sender, EventArgs e) => Recalculate();
-        private void LyricsTextBox_DragDrop(object sender, DragEventArgs e) => DropFile(e);
-        private void LyricsTextBox_DragEnter(object sender, DragEventArgs e) => DropCheck(e);
-        private void LyricsTextBox_TextChanged(object sender, EventArgs e) => LyricsChanged();
+        private void FileSelectAvSource_Click(object sender, System.EventArgs e) => LoadDuration();
+
         private void PopupCaptionsOpen_Click(object sender, System.EventArgs e) => LoadCaptions();
         private void PopupCaptionsSave_Click(object sender, System.EventArgs e) => SaveCaptions();
         private void PopupLyricsOpen_Click(object sender, System.EventArgs e) => LoadLyrics();
         private void PopupLyricsSave_Click(object sender, System.EventArgs e) => SaveLyrics();
+
+        private void CaptionsTextBox_TextChanged(object sender, EventArgs e) => CaptionsChanged();
+        private void EdVideoLength_ValueChanged(object sender, EventArgs e) => Recalculate();
+        private void LyricsTextBox_TextChanged(object sender, EventArgs e) => LyricsChanged();
+        private void MainForm_DragDrop(object sender, DragEventArgs e) => DropFile(e);
+        private void MainForm_DragEnter(object sender, DragEventArgs e) => DropCheck(e);
         private void View_FormClosing(object sender, FormClosingEventArgs e) => e.Cancel = CancelClose(e.CloseReason);
 
         #endregion
@@ -102,9 +104,19 @@
 
         private void DropFile(DragEventArgs e)
         {
-            var fileNames = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            foreach (var fileName in fileNames)
-                LoadLyrics(fileName);
+            foreach (var fileName in (string[])e.Data.GetData(DataFormats.FileDrop, false))
+                switch (Path.GetExtension(fileName).ToUpper())
+                {
+                    case ".MOV":
+                    case ".MP3":
+                    case ".MP4":
+                    case ".WAV":
+                        LoadDuration(fileName);
+                        break;
+                    case ".TXT":
+                        LoadLyrics(fileName);
+                        break;
+                }
         }
 
         protected override void InitControllers(Controller parent)
@@ -116,7 +128,12 @@
         protected override void InitEvents()
         {
             base.InitEvents();
-            MainForm.BtnSelectVideoFile.Click += BtnSelectVideoFile_Click;
+            MainForm.FileSelectAvSource.Click += FileSelectAvSource_Click;
+            MainForm.FileLoadLyrics.Click += PopupLyricsOpen_Click;
+            MainForm.FileSaveLyrics.Click += PopupLyricsSave_Click;
+            MainForm.FileSaveCaptions.Click += PopupCaptionsSave_Click;
+            MainForm.DragDrop += MainForm_DragDrop;
+            MainForm.DragEnter += MainForm_DragEnter;
             MainForm.FormClosing += View_FormClosing;
             MainForm.PopupLyricsOpen.Click += PopupLyricsOpen_Click;
             MainForm.PopupLyricsSave.Click += PopupLyricsSave_Click;
@@ -126,8 +143,6 @@
             EdMilliseconds.ValueChanged += EdVideoLength_ValueChanged;
             EdMinutes.ValueChanged += EdVideoLength_ValueChanged;
             EdSeconds.ValueChanged += EdVideoLength_ValueChanged;
-            LyricsTextBox.DragDrop += LyricsTextBox_DragDrop;
-            LyricsTextBox.DragEnter += LyricsTextBox_DragEnter;
             LyricsTextBox.TextChanged += LyricsTextBox_TextChanged;
         }
 
@@ -147,7 +162,12 @@
         {
             if (VideoOpenDialog.ShowDialog(MainForm) != DialogResult.OK)
                 return;
-            FileName = VideoOpenDialog.FileName;
+            LoadDuration(VideoOpenDialog.FileName);
+        }
+
+        private void LoadDuration(string fileName)
+        {
+            FileName = fileName;
             var file = TagLib.File.Create(FileName);
             var duration = file.Properties.Duration;
             EdMinutes.Value = duration.Minutes;
