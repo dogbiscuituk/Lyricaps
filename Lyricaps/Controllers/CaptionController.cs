@@ -40,7 +40,10 @@
             foreach (var line in Lines)
             {
                 var text = line;
-                lineEnd += ParseLine(ref text);
+                var lineDelta = ParseLine(ref text);
+                if (lineDelta == 0) // Ignore lines starting with a hyphen.
+                    continue;
+                lineEnd += lineDelta;
                 startTime = endTime;
                 endTime = TimeSpan.FromMilliseconds(totalTime * lineEnd / linesEnd).ToString(@"hh\:mm\:ss\,fff");
                 if (!string.IsNullOrWhiteSpace(text) && text != previousText) // Add the new text.
@@ -68,12 +71,16 @@
         #region Static Methods
 
         private static (int, double) ParseLine(string line) =>
-            line.StartsWith("..") ? (2, 0.75) :
-            line.StartsWith(".") ? (1, 0.5) :
-            line.StartsWith(":") ? (1, 0.25) :
-            line.EndsWith("..") ? (-2, 1.75) :
-            line.EndsWith(".") ? (-1, 1.5) :
-            line.EndsWith(":") ? (-1, 1.25) : (0, 1.0);
+            line.StartsWith("-") ? /* leading hyphen = comment, no lyric displayed */ (1, 0) :
+            line.StartsWith("..") ? /* leading double period = ¾ line */ (2, 0.75) :
+            line.StartsWith(".") ? /* leading single period = ½ line */ (1, 0.5) :
+            line.StartsWith(":") ? /* leading colon = ¼ line */ (1, 0.25) :
+            line.StartsWith(";") ? /* leading semicolon = ⅛ line */ (1, 0.125) :
+            line.EndsWith("..") ? /* trailing double period = 1¾ line */ (-2, 1.75) :
+            line.EndsWith(".") ? /* trailing single period = 1½ line */ (-1, 1.5) :
+            line.EndsWith(":") ? /* trailing colon = 1¼ line */ (-1, 1.25) :
+            line.EndsWith(";") ? /* trailing semicolon = 1⅛ line */ (-1, 1.125) :
+            (0, 1.0);
 
         private static double ParseLine(ref string line)
         {

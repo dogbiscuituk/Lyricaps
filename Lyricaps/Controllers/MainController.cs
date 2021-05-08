@@ -49,18 +49,21 @@
 
 Blank lines cause the previous line to remain on display
 To actually blank the caption use just a single backslash \
+To 'comment out' a lyric line use a leading hyphen -
 
 At the start of a line (or on an otherwise empty line):
 
+    .. Two periods = ¾ time (75%)
     . Period = ½ time (50%)
     : Colon = ¼ time (25%)
-    .. Two periods = ¾ time (75%)
+    ; Semicolon = ⅛ time (12.5%)
 
 At the end of a nonempty line:
 
+    Two periods = 1¾ time (175%) ..
     Period = 1½ time (150%) .
     Colon = 1¼ time (125%) :
-    Two periods = 1¾ time (175%) ..",
+    Semicolon = 1⅛ time (112.5%) ;",
             "Lyric Captions - version 1.2 by John Michael Kerr",
             MessageBoxButtons.OK,
             MessageBoxIcon.Information);
