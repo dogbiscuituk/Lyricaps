@@ -47,8 +47,7 @@
             MainForm,
             @"LYRICS MARKUP INFORMATION
 
-Blank lines cause the previous line to remain on display
-To actually blank the caption use just a single backslash \
+To repeat a lyric line use a double quotation mark ""
 To 'comment out' a lyric line use a leading hyphen -
 
 At the start of a line (or on an otherwise empty line):
@@ -64,7 +63,7 @@ At the end of a nonempty line:
     Period = 1½ time (150%) .
     Colon = 1¼ time (125%) :
     Semicolon = 1⅛ time (112.5%) ;",
-            "Lyric Captions - version 1.2 by John Michael Kerr",
+            "Lyric Captions - version 1.3 by John Michael Kerr",
             MessageBoxButtons.OK,
             MessageBoxIcon.Information);
 

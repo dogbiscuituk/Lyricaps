@@ -32,9 +32,12 @@
             var itemIndex = 0;
             var lineEnd = 0.0;
             string
-                startTime,
-                endTime = "00:00:00,000",
+                startString,
+                endString = "00:00:00,000",
                 previousText = string.Empty;
+            TimeSpan
+                startTime,
+                endTime = TimeSpan.Zero;
             var totalTime = timeSpan.TotalMilliseconds;
             var linesEnd = Lines.Sum(line => ParseLine(line).Item2);
             foreach (var line in Lines)
@@ -45,23 +48,24 @@
                     continue;
                 lineEnd += lineDelta;
                 startTime = endTime;
-                endTime = TimeSpan.FromMilliseconds(totalTime * lineEnd / linesEnd).ToString(@"hh\:mm\:ss\,fff");
-                if (!string.IsNullOrWhiteSpace(text) && text != previousText) // Add the new text.
+                endTime = TimeSpan.FromMilliseconds(totalTime * lineEnd / linesEnd);
+                startString = endString;
+                endString = endTime.ToString(@"hh\:mm\:ss\,fff");
+                if (text != "\"" && text != previousText || itemIndex == 0) // Add the new text.
                 {
-                    text = text == @"\" ? string.Empty : $" {text.Trim()} ";
                     Captions.AddRange(new[]
                     {
                         $"{++itemIndex}",
-                        $"{startTime} --> {endTime}",
-                        text,
+                        $"{startString} --> {endString}",
+                        string.IsNullOrWhiteSpace(text) ? string.Empty : $" {text.Trim()} ",
                         string.Empty
                     });
                     previousText = text;
                 }
-                else if (itemIndex > 0) // The previous lyric is repeated, so just extend its display time.
+                else // The previous lyric is repeated, so just extend its display time.
                 {
                     var captionIndex = 4 * itemIndex - 3;
-                    Captions[captionIndex] = $"{Captions[captionIndex].Substring(0, 17)}{endTime}";
+                    Captions[captionIndex] = $"{Captions[captionIndex].Substring(0, 17)}{endString}";
                 }
             }
         }
