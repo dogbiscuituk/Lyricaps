@@ -63,7 +63,7 @@ At the end of a nonempty line:
     Period = 1½ time (150%) .
     Colon = 1¼ time (125%) :
     Semicolon = 1⅛ time (112.5%) ;",
-            "Lyric Captions - version 1.3 by John Michael Kerr",
+            "Lyric Captions - version 1.4 by John Michael Kerr",
             MessageBoxButtons.OK,
             MessageBoxIcon.Information);
 

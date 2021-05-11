@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Types\CaptionFormats.cs" />
     <Compile Include="Controllers\CaptionController.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\FileController.cs" />

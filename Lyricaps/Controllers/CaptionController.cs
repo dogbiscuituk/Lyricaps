@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Lyricaps.Types;
 
     internal class CaptionController : Controller
     {
@@ -22,27 +23,78 @@
 
         #region Methods
 
-        internal void GetCaptions(int min, int sec, int ms) => GetCaptions(new TimeSpan(0, 0, min, sec, ms));
+        internal void GetCaptions(CaptionFormats captionFormat, int min, int sec, int ms) =>
+            GetCaptions(captionFormat, new TimeSpan(0, 0, min, sec, ms));
 
-        private void GetCaptions(TimeSpan timeSpan)
+        private void GetCaptions(CaptionFormats captionFormat, TimeSpan timeSpan)
         {
-            Lines.Clear();
-            Lines.AddRange(((FileController)Parent).LyricsTextBox.Lines);
-            Captions.Clear();
             var itemIndex = 0;
-            var lineEnd = 0.0;
             string
                 startString,
                 endString = "00:00:00,000",
+                text,
                 previousText = string.Empty;
+
+            string[] CreateNewItem()
+            {
+                switch (captionFormat)
+                {
+                    case CaptionFormats.SubRip:
+                        return new[]
+                        {
+                                $"{++itemIndex}",
+                                $"{startString} --> {endString}",
+                                string.IsNullOrWhiteSpace(text) ? string.Empty : $" {text.Trim()} ",
+                                string.Empty
+                        };
+                    case CaptionFormats.SubViewer:
+                        return new[]
+                        {
+                                $"{startString},{endString}",
+                                string.IsNullOrWhiteSpace(text) ? string.Empty : $" {text.Trim()} ",
+                                string.Empty
+                        };
+                }
+                return new string[0];
+            }
+
+            (int, int) GetEndPosition()
+            {
+                switch (captionFormat)
+                {
+                    case CaptionFormats.SubRip:
+                        return (4 * itemIndex - 3, 17);
+                    case CaptionFormats.SubViewer:
+                        return (3 * itemIndex - 2, 12);
+                }
+                return (0, 0);
+            }
+
+            string GetTimeFormat()
+            {
+                switch (captionFormat)
+                {
+                    case CaptionFormats.SubRip:
+                        return @"hh\:mm\:ss\,fff"; // ms separator is comma
+                    case CaptionFormats.SubViewer:
+                        return @"hh\:mm\:ss\.fff"; // ms separator is period
+                }
+                return string.Empty;
+            }
+
+            Lines.Clear();
+            Lines.AddRange(((FileController)Parent).LyricsTextBox.Lines);
+            Captions.Clear();
+            var lineEnd = 0.0;
             TimeSpan
                 startTime,
                 endTime = TimeSpan.Zero;
             var totalTime = timeSpan.TotalMilliseconds;
             var linesEnd = Lines.Sum(line => ParseLine(line).Item2);
+            var timeFormat = GetTimeFormat();
             foreach (var line in Lines)
             {
-                var text = line;
+                text = line;
                 var lineDelta = ParseLine(ref text);
                 if (lineDelta == 0) // Ignore lines starting with a hyphen.
                     continue;
@@ -50,22 +102,16 @@
                 startTime = endTime;
                 endTime = TimeSpan.FromMilliseconds(totalTime * lineEnd / linesEnd);
                 startString = endString;
-                endString = endTime.ToString(@"hh\:mm\:ss\,fff");
+                endString = endTime.ToString(timeFormat);
                 if (text != "\"" && text != previousText || itemIndex == 0) // Add the new text.
                 {
-                    Captions.AddRange(new[]
-                    {
-                        $"{++itemIndex}",
-                        $"{startString} --> {endString}",
-                        string.IsNullOrWhiteSpace(text) ? string.Empty : $" {text.Trim()} ",
-                        string.Empty
-                    });
+                    Captions.AddRange(CreateNewItem());
                     previousText = text;
                 }
                 else // The previous lyric is repeated, so just extend its display time.
                 {
-                    var captionIndex = 4 * itemIndex - 3;
-                    Captions[captionIndex] = $"{Captions[captionIndex].Substring(0, 17)}{endString}";
+                    var p = GetEndPosition();
+                    Captions[p.Item1] = $"{Captions[p.Item1].Substring(0, p.Item2)}{endString}";
                 }
             }
         }

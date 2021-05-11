@@ -1,8 +1,10 @@
 ﻿namespace Lyricaps.Controllers
 {
     using System;
+    using System.ComponentModel;
     using System.IO;
     using System.Windows.Forms;
+    using Lyricaps.Types;
     using Lyricaps.Views;
 
     internal class FileController : Controller
@@ -16,6 +18,7 @@
         #region Fields
 
         private CaptionController CaptionController;
+        private CaptionFormats _CaptionFormat = CaptionFormats.SubRip;
         private string FileName;
         private bool LyricsEdited, CaptionsUpdated;
 
@@ -43,6 +46,21 @@
         private bool CanSaveCaptions => CaptionsUpdated && !string.IsNullOrWhiteSpace(CaptionsSaveDialog.FileName);
         private bool CanSaveLyrics => LyricsEdited && !string.IsNullOrWhiteSpace(LyricsSaveDialog.FileName);
 
+        private CaptionFormats CaptionFormat
+        {
+            get => _CaptionFormat;
+            set
+            {
+                if (CaptionFormat != value)
+                {
+                    _CaptionFormat = value;
+                    CaptionsSaveDialog.FilterIndex = (int)value;
+                    CaptionsSaveDialog.DefaultExt = value == CaptionFormats.SubRip ? "srt" : "sbv";
+                    Recalculate();
+                }
+            }
+        }
+
         #endregion
 
         #region Event Handlers
@@ -57,13 +75,18 @@
         private void FileSaveLyrics_Click(object sender, EventArgs e) => SaveLyrics();
         private void FileSaveLyricsAs_Click(object sender, EventArgs e) => SaveLyricsAs();
 
+        private void ViewCaptionsFormat_DropDownOpening(object sender, EventArgs e) => UpdateCaptionsFormats();
+        private void ViewCaptionsFormatSubRip_Click(object sender, EventArgs e) => CaptionFormat = CaptionFormats.SubRip;
+        private void ViewCaptionsFormatSubViewer_Click(object sender, EventArgs e) => CaptionFormat = CaptionFormats.SubViewer;
+
         private void MainForm_DragDrop(object sender, DragEventArgs e) => DropFile(e);
         private void MainForm_DragEnter(object sender, DragEventArgs e) => DropCheck(e);
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) => e.Cancel = CancelClose(e.CloseReason);
 
+        private void CaptionsSaveDialog_FileOk(object sender, CancelEventArgs e) => CaptionFormat = (CaptionFormats)CaptionsSaveDialog.FilterIndex;
         private void CaptionsTextBox_TextChanged(object sender, EventArgs e) => CaptionsUpdated = true;
         private void EdVideoLength_ValueChanged(object sender, EventArgs e) => Recalculate();
         private void LyricsTextBox_TextChanged(object sender, EventArgs e) => LyricsChanged();
-        private void View_FormClosing(object sender, FormClosingEventArgs e) => e.Cancel = CancelClose(e.CloseReason);
 
         #endregion
 
@@ -143,6 +166,10 @@
             MainForm.FileSaveCaptions.Click += FileSaveCaptions_Click;
             MainForm.FileSaveCaptionsAs.Click += FileSaveCaptionsAs_Click;
 
+            MainForm.ViewCaptionsFormat.DropDownOpening += ViewCaptionsFormat_DropDownOpening;
+            MainForm.ViewCaptionsFormatSubRip.Click += ViewCaptionsFormatSubRip_Click;
+            MainForm.ViewCaptionsFormatSubViewer.Click += ViewCaptionsFormatSubViewer_Click;
+
             MainForm.PopupLyrics.Opening += Menu_Opening;
             MainForm.PopupLyricsOpen.Click += FileOpenLyrics_Click;
             MainForm.PopupLyricsSave.Click += FileSaveLyrics_Click;
@@ -155,8 +182,9 @@
 
             MainForm.DragDrop += MainForm_DragDrop;
             MainForm.DragEnter += MainForm_DragEnter;
-            MainForm.FormClosing += View_FormClosing;
+            MainForm.FormClosing += MainForm_FormClosing;
 
+            CaptionsSaveDialog.FileOk += CaptionsSaveDialog_FileOk;
             CaptionsTextBox.TextChanged += CaptionsTextBox_TextChanged;
             EdMilliseconds.ValueChanged += EdVideoLength_ValueChanged;
             EdMinutes.ValueChanged += EdVideoLength_ValueChanged;
@@ -217,7 +245,7 @@
 
         private void Recalculate()
         {
-            CaptionController.GetCaptions((int)EdMinutes.Value, (int)EdSeconds.Value, (int)EdMilliseconds.Value);
+            CaptionController.GetCaptions(CaptionFormat, (int)EdMinutes.Value, (int)EdSeconds.Value, (int)EdMilliseconds.Value);
             CaptionsTextBox.Lines = CaptionController.Captions.ToArray();
         }
 
@@ -258,6 +286,12 @@
         {
             if (LyricsSaveDialog.ShowDialog(MainForm) == DialogResult.OK)
                 SaveLyrics();
+        }
+
+        private void UpdateCaptionsFormats()
+        {
+            MainForm.ViewCaptionsFormatSubRip.Checked = CaptionFormat == CaptionFormats.SubRip;
+            MainForm.ViewCaptionsFormatSubViewer.Checked = CaptionFormat == CaptionFormats.SubViewer;
         }
 
         private void UpdateFileDialog(string extension, params FileDialog[] fileDialogs)

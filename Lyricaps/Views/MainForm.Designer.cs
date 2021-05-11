@@ -79,6 +79,10 @@
             this.ViewVerticalSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
+            this.ViewCaptionsFormat = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewCaptionsFormatSubRip = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewCaptionsFormatSubViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.PopupLyrics.SuspendLayout();
             this.PopupCaptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).BeginInit();
@@ -258,7 +262,8 @@
             // CaptionsSaveDialog
             // 
             this.CaptionsSaveDialog.DefaultExt = "srt";
-            this.CaptionsSaveDialog.Filter = "SubRip files (*.srt)|*.srt|All files (*.*)|*.*";
+            this.CaptionsSaveDialog.Filter = "SubRip files (*.srt)|*.srt|SubViewer files (*.sbv;*.sub)|*.sbv;*.sub|All files (*" +
+    ".*)|*.*";
             this.CaptionsSaveDialog.Title = "Save Captions File";
             // 
             // LyricsSaveDialog
@@ -276,7 +281,8 @@
             // 
             // CaptionsOpenDialog
             // 
-            this.CaptionsOpenDialog.Filter = "SubRip files (*.srt)|*.srt|All files (*.*)|*.*";
+            this.CaptionsOpenDialog.Filter = "SubRip files (*.srt)|*.srt|SubViewer files (*.sbv;*.sub)|*.sbv;*.sub|All files (*" +
+    ".*)|*.*";
             this.CaptionsOpenDialog.Title = "Open Captions File";
             // 
             // toolStripContainer1
@@ -493,7 +499,9 @@
             // 
             this.ViewMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ViewHorizontalSplit,
-            this.ViewVerticalSplit});
+            this.ViewVerticalSplit,
+            this.toolStripMenuItem7,
+            this.ViewCaptionsFormat});
             this.ViewMenu.Name = "ViewMenu";
             this.ViewMenu.Size = new System.Drawing.Size(44, 20);
             this.ViewMenu.Text = "&View";
@@ -524,6 +532,32 @@
             this.HelpAbout.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.HelpAbout.Size = new System.Drawing.Size(180, 22);
             this.HelpAbout.Text = "&Information";
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
+            // 
+            // ViewCaptionsFormat
+            // 
+            this.ViewCaptionsFormat.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ViewCaptionsFormatSubRip,
+            this.ViewCaptionsFormatSubViewer});
+            this.ViewCaptionsFormat.Name = "ViewCaptionsFormat";
+            this.ViewCaptionsFormat.Size = new System.Drawing.Size(180, 22);
+            this.ViewCaptionsFormat.Text = "Captions Format";
+            // 
+            // ViewCaptionsFormatSubRip
+            // 
+            this.ViewCaptionsFormatSubRip.Name = "ViewCaptionsFormatSubRip";
+            this.ViewCaptionsFormatSubRip.Size = new System.Drawing.Size(180, 22);
+            this.ViewCaptionsFormatSubRip.Text = "Sub&Rip";
+            // 
+            // ViewCaptionsFormatSubViewer
+            // 
+            this.ViewCaptionsFormatSubViewer.Name = "ViewCaptionsFormatSubViewer";
+            this.ViewCaptionsFormatSubViewer.Size = new System.Drawing.Size(180, 22);
+            this.ViewCaptionsFormatSubViewer.Text = "Sub&Viewer";
             // 
             // MainForm
             // 
@@ -612,6 +646,10 @@
         internal System.Windows.Forms.ToolStripMenuItem PopupLyricsSave;
         internal System.Windows.Forms.ToolStripMenuItem PopupCaptionsSave;
         internal System.Windows.Forms.ToolStripMenuItem FileSaveAll;
+        internal System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
+        internal System.Windows.Forms.ToolStripMenuItem ViewCaptionsFormat;
+        internal System.Windows.Forms.ToolStripMenuItem ViewCaptionsFormatSubRip;
+        internal System.Windows.Forms.ToolStripMenuItem ViewCaptionsFormatSubViewer;
     }
 }
 
